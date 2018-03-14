@@ -27,11 +27,20 @@ npm run develop
 
 ## Gatsby Plugins
 
-* react-helmet
-* styled-components
-* typescript
-* filesystem (source)
-* remark (transformer)
+* gatsby-plugin-catch-links
+* gatsby-plugin-manifest
+* gatsby-plugin-offline
+* gatsby-plugin-react-helmet
+* gatsby-plugin-sharp
+* gatsby-plugin-styled-components
+* gatsby-plugin-typescript
+* gatsby-remark-copy-linked-files
+* gatsby-remark-images
+* gatsby-remark-prismjs
+* gatsby-remark-smartypants
+* gatsby-source-filesystem
+* gatsby-transformer-remark
+* gatsby-transformer-sharp
 
 ## Tools
 

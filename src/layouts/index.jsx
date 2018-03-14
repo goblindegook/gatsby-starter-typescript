@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { Header } from '../components/Header'
 import './index.css'
+import 'prismjs/themes/prism-okaidia.css'
 
 const Wrapper = styled.div`
   margin: 0 auto;
