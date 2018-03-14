@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: '@goblindegook/gatsby-starter-typescript'
+    title: 'gatsby-starter-typescript'
   },
   plugins: [
     'gatsby-plugin-typescript',
