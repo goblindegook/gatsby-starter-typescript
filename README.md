@@ -2,6 +2,8 @@
 
 A Gatsby starter using [TypeScript](https://typescriptlang.org) and [styled-components](https://www.styled-components.com).
 
+View the [demo](https://goblindegook-gatsby-starter-typescript.netlify.com).
+
 ## Install
 
 Make sure that you have the Gatsby CLI program installed:
@@ -35,7 +37,3 @@ npm run develop
 
 * Testing: [Jest](https://facebook.github.io/jest/) and [Enzyme](http://airbnb.io/enzyme/)
 * Linter: [TSLint](https://palantir.github.io/tslint/) with the tslint-config-standard and tslint-immutable configurations.
-
-## Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/goblindegook/gatsby-starter-typescript)
