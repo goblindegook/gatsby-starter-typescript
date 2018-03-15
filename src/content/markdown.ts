@@ -1,11 +1,17 @@
-export type MarkdownContent = {
+export type MarkdownRemark = {
   readonly id: string
   readonly excerpt: string
   readonly html: string
   readonly frontmatter: {
-    readonly path: string
-    readonly title: string
     readonly date: string
     readonly draft: string
+    readonly path: string
+    readonly tags: ReadonlyArray<string>
+    readonly title: string
   }
+}
+
+export type AllMarkdownRemark = {
+  readonly totalCount: number
+  readonly edges: ReadonlyArray<{ readonly node: MarkdownRemark }>
 }

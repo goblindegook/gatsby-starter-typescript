@@ -2,6 +2,7 @@
 path: "/content/kittens/"
 date: "2018-01-07"
 title: "Kittens"
+tags: ["markdown", "kittens", "example"]
 ---
 
 This is an example of how you can build your site around Markdown files.

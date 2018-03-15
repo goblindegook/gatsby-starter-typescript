@@ -1,15 +1,20 @@
 import * as React from 'react'
-import { MarkdownContent } from '../content/markdown'
+import { MarkdownRemark } from '../content/markdown'
 
-type TemplateProps = {
+type ContentTemplateProps = {
   readonly data: {
-    readonly markdownRemark: MarkdownContent
+    readonly markdownRemark: MarkdownRemark
   }
 }
 
 export const pageQuery = graphql`
-  query BlogPostByPath($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+  query ContentByPath($path: String!) {
+    markdownRemark(
+      frontmatter: {
+        draft: { ne: true }
+        path: { eq: $path }
+      }
+    ) {
       html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
@@ -20,7 +25,7 @@ export const pageQuery = graphql`
   }
 `
 
-const ContentTemplate = ({ data }: TemplateProps) => {
+const ContentTemplate = ({ data }: ContentTemplateProps) => {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
   return (

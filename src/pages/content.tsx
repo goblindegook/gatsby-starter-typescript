@@ -1,36 +1,13 @@
 import * as React from "react"
 import { Helmet } from 'react-helmet'
 import GatsbyLink from 'gatsby-link'
-import { MarkdownContent } from '../content/markdown'
+import { AllMarkdownRemark } from '../content/markdown'
 
 type IndexPageProps = {
   readonly data: {
-    readonly allMarkdownRemark: {
-      readonly edges: ReadonlyArray<{
-        readonly node: MarkdownContent
-      }>
-    }
+    readonly allMarkdownRemark: AllMarkdownRemark
   }
 }
-
-export const pageQuery = graphql`
-  query IndexQuery {
-    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
-      edges {
-        node {
-          id
-          excerpt(pruneLength: 250)
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            draft
-            path
-            title
-          }
-        }
-      }
-    }
-  }
-`
 
 const IndexPage = ({ data }: IndexPageProps) => (
   <div>
@@ -48,12 +25,35 @@ const IndexPage = ({ data }: IndexPageProps) => (
         .map(({ node }) => (
           <li>
             <GatsbyLink key={node.id} to={node.frontmatter.path}>
-              {node.frontmatter.title} ({node.frontmatter.date})
-            </GatsbyLink>
+              {node.frontmatter.title}
+            </GatsbyLink> ({node.frontmatter.date})
           </li>
         ))
     }</ul>
+    <GatsbyLink to="/tags">All tags</GatsbyLink>
   </div>
 )
 
 export default IndexPage
+
+export const pageQuery = graphql`
+  query IndexQuery {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date] }
+      filter: { frontmatter: { draft: { ne: true } } }
+    ) {
+      edges {
+        node {
+          id
+          excerpt(pruneLength: 250)
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            draft
+            path
+            title
+          }
+        }
+      }
+    }
+  }
+`
