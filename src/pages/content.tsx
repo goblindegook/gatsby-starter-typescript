@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Helmet } from 'react-helmet'
-import { ContentLink } from '../components/ContentLink'
+import GatsbyLink from 'gatsby-link'
 import { MarkdownContent } from '../content/markdown'
 
 type IndexPageProps = {
@@ -44,8 +44,14 @@ const IndexPage = ({ data }: IndexPageProps) => (
     <h1>Markdown Content</h1>
     <ul>{
       data.allMarkdownRemark.edges
-        .filter(edge => !edge.node.frontmatter.draft)
-        .map(edge => <li><ContentLink key={edge.node.id} content={edge.node} /></li>)
+        .filter((edge) => !edge.node.frontmatter.draft)
+        .map(edge => (
+          <li>
+            <GatsbyLink key={edge.node.id} to={edge.node.frontmatter.path}>
+              {edge.node.frontmatter.title} ({edge.node.frontmatter.date})
+            </GatsbyLink>
+          </li>
+        ))
     }</ul>
   </div>
 )
