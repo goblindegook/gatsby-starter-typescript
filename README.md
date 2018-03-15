@@ -29,6 +29,7 @@ npm run develop
 
 * gatsby-plugin-catch-links
 * gatsby-plugin-manifest
+* gatsby-plugin-netlify
 * gatsby-plugin-offline
 * gatsby-plugin-react-helmet
 * gatsby-plugin-sharp
