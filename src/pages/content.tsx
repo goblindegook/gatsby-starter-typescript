@@ -44,11 +44,11 @@ const IndexPage = ({ data }: IndexPageProps) => (
     <h1>Markdown Content</h1>
     <ul>{
       data.allMarkdownRemark.edges
-        .filter((edge) => !edge.node.frontmatter.draft)
-        .map(edge => (
+        .filter(({ node }) => !node.frontmatter.draft)
+        .map(({ node }) => (
           <li>
-            <GatsbyLink key={edge.node.id} to={edge.node.frontmatter.path}>
-              {edge.node.frontmatter.title} ({edge.node.frontmatter.date})
+            <GatsbyLink key={node.id} to={node.frontmatter.path}>
+              {node.frontmatter.title} ({node.frontmatter.date})
             </GatsbyLink>
           </li>
         ))
