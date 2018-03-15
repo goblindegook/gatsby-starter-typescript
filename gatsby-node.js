@@ -21,6 +21,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
           node {
             frontmatter {
               path
+              draft
             }
           }
         }
@@ -31,12 +32,14 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       return Promise.reject(result.errors)
     }
 
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      createPage({
-        path: node.frontmatter.path,
-        component,
-        context: {} // additional data can be passed via context
+    result.data.allMarkdownRemark.edges
+      .filter(({ node }) => !node.frontmatter.draft)
+      .forEach(({ node }) => {
+        createPage({
+          path: node.frontmatter.path,
+          component,
+          context: {} // additional data can be passed via context
+        })
       })
-    })
   })
 }

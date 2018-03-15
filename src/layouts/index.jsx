@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import { Header } from '../components/Header'
 import './index.css'
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const TemplateWrapper = ({ children }) => (
   <div>
     <Helmet
-      title='Gatsby Default Starter'
+      title='Gatsby Starter TypeScript'
       meta={[
         { name: 'description', content: 'Sample' },
         { name: 'keywords', content: 'sample, something' }

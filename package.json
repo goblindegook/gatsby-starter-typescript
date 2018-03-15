@@ -5,7 +5,7 @@
   "author": "Luís Rodrigues <hello@goblindegook.com>",
   "dependencies": {
     "gatsby": "^1.9.223",
-    "gatsby-link": "^1.6.38",
+    "gatsby-link": "^1.6.39",
     "gatsby-plugin-catch-links": "^1.0.19",
     "gatsby-plugin-manifest": "^1.0.15",
     "gatsby-plugin-offline": "^1.0.15",

@@ -1,15 +1,9 @@
 import * as React from 'react'
+import { MarkdownContent } from '../content/markdown'
 
 type TemplateProps = {
   readonly data: {
-    readonly markdownRemark: {
-      readonly frontmatter: {
-        readonly title: string
-        readonly date: string
-        readonly path: string
-      }
-      readonly html: string
-    }
+    readonly markdownRemark: MarkdownContent
   }
 }
 
