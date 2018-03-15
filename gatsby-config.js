@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: 'gatsby-starter-typescript'
+    title: 'gatsby-starter-typescript',
+    author: 'Luís Rodrigues'
   },
   plugins: [
     'gatsby-plugin-typescript',

@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const TemplateWrapper = ({ children }) => (
   <div>
     <Helmet
-      title='Gatsby Starter TypeScript'
+      title='gatsby-starter-typescript'
       meta={[
         { name: 'description', content: 'Sample' },
         { name: 'keywords', content: 'sample, something' }

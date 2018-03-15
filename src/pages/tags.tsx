@@ -1,8 +1,9 @@
-import * as React from "react"
+import * as React from 'react'
 import { kebabCase } from 'lodash'
-import Helmet from "react-helmet"
-import GatsbyLink from "gatsby-link"
+import Helmet from 'react-helmet'
+import GatsbyLink from 'gatsby-link'
 import { AllMarkdownRemark } from '../content/markdown'
+import { Site } from '../content/site'
 
 type TagsPageProps = {
   readonly data: {
@@ -12,11 +13,7 @@ type TagsPageProps = {
         readonly totalCount: number
       }>
     }
-    readonly site: {
-      readonly siteMetadata: {
-        readonly title: string
-      }
-    }
+    readonly site: Site
   }
 }
 
@@ -25,7 +22,7 @@ const TagsPage = ({ data }: TagsPageProps) => {
 
   return (
     <div>
-      <Helmet title={site.siteMetadata.title} />
+      <Helmet title={`Tags - ${site.siteMetadata.title}`} />
       <div>
         <h1>Tags</h1>
         <ul>
@@ -33,7 +30,8 @@ const TagsPage = ({ data }: TagsPageProps) => {
             <li key={tag.fieldValue}>
               <GatsbyLink to={`/tags/${kebabCase(tag.fieldValue)}/`}>
                 {tag.fieldValue}
-              </GatsbyLink> ({tag.totalCount})
+              </GatsbyLink>{' '}
+              ({tag.totalCount})
             </li>
           ))}
         </ul>

@@ -4,7 +4,7 @@ export type MarkdownRemark = {
   readonly html: string
   readonly frontmatter: {
     readonly date: string
-    readonly draft: string
+    readonly draft: boolean
     readonly path: string
     readonly tags: ReadonlyArray<string>
     readonly title: string
