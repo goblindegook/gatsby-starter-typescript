@@ -1,6 +1,6 @@
 # @goblindegook/gatsby-starter-typescript
 
-A Gatsby starter using [TypeScript](https://typescriptlang.org) and [styled-components](https://www.styled-components.com).
+A Gatsby starter using [TypeScript](https://www.typescriptlang.org) and [styled-components](https://www.styled-components.com).
 
 View the [demo](https://goblindegook-gatsby-starter-typescript.netlify.com).
 
