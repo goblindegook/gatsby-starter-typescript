@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import Link from 'gatsby-link'
+import GatsbyLink from 'gatsby-link'
 
 const Title = styled.h1`
   margin: 0;
@@ -17,20 +17,18 @@ const Wrapper = styled.div`
   padding: 1.45rem 1.0875rem;
 `
 
-const style = {
-  link: {
-    color: 'white',
-    textDecoration: 'none'
-  }
-}
+const TitleLink = styled(GatsbyLink)`
+  color: white;
+  text-decoration: none;
+`
 
 export const Header = () => (
   <Container>
     <Wrapper>
       <Title>
-        <Link to="/" style={style.link}>
+        <TitleLink to="/">
           Gatsby Starter
-        </Link>
+        </TitleLink>
       </Title>
     </Wrapper>
   </Container>

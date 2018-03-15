@@ -16,8 +16,8 @@ const TemplateWrapper = ({ children }) => (
     <Helmet
       title='gatsby-starter-typescript'
       meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' }
+        { name: 'description', content: 'Demo site for a Gatsby Starter in TypeScript' },
+        { name: 'keywords', content: 'gatsby, gatsbyjs, sample, demo, typescript' }
       ]}
     />
     <Header />
