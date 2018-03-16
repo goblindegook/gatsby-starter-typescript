@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 import { Header } from '../components/Header'
-import './index.css'
+import 'normalize.css'
 import 'prismjs/themes/prism-okaidia.css'
 
 type TemplateWrapperProps = {
