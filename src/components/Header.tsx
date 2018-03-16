@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import GatsbyLink from 'gatsby-link'
 
 const Title = styled.h1`
+  font-family: sans-serif;
   margin: 0;
 `
 
