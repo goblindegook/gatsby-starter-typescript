@@ -11,7 +11,11 @@ export type MarkdownRemark = {
   }
 }
 
+export type MarkdownRemarkEdge = { readonly node: MarkdownRemark }
+
+export type MarkdownRemarkEdges = ReadonlyArray<MarkdownRemarkEdge>
+
 export type AllMarkdownRemark = {
   readonly totalCount: number
-  readonly edges: ReadonlyArray<{ readonly node: MarkdownRemark }>
+  readonly edges: MarkdownRemarkEdges
 }

@@ -27,10 +27,12 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
+    "react-router-dom": "^4.2.2",
     "styled-components": "^3.2.2"
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.9",
+    "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/jest": "^22.2.0",
     "@types/lodash": "^4.14.104",
     "@types/node": "^9.4.7",
@@ -41,7 +43,9 @@
     "@types/react-router": "^4.0.22",
     "@types/react-router-dom": "^4.2.4",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.4.2",
+    "jest-environment-enzyme": "^6.0.0",
     "prettier": "^1.11.1",
     "ts-jest": "^22.4.1",
     "tslint": "^5.9.1",
@@ -62,6 +66,7 @@
     "test": "jest"
   },
   "jest": {
+    "testEnvironment": "enzyme",
     "globals": {
       "__LINK_PREFIX__": "",
       "__PREFIX_LINKS__": ""

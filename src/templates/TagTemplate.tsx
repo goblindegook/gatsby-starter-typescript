@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import GatsbyLink from 'gatsby-link'
 import { AllMarkdownRemark } from '../content/markdown'
 import { Site } from '../content/site'
+import { ContentList } from '../components/ContentList'
 
 type TagTemplateProps = {
   readonly pathContext: {
@@ -25,16 +26,7 @@ const TagTemplate = ({ data, pathContext }: TagTemplateProps) => {
       <h1>{`${totalCount} ${
         totalCount === 1 ? 'item' : 'items'
       } tagged with "${tag}"`}</h1>
-      <ul>
-        {edges.map(({ node }) => {
-          const { path, title } = node.frontmatter
-          return (
-            <li key={path}>
-              <GatsbyLink to={path}>{title}</GatsbyLink>
-            </li>
-          )
-        })}
-      </ul>
+      <ContentList edges={edges} />
       <GatsbyLink to="/tags">All tags</GatsbyLink>
     </div>
   )
@@ -58,8 +50,9 @@ export const pageQuery = graphql`
       edges {
         node {
           frontmatter {
-            title
+            date(formatString: "MMMM DD, YYYY")
             path
+            title
           }
         }
       }

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import GatsbyLink from 'gatsby-link'
+import { ContentList } from '../components/ContentList'
 import { AllMarkdownRemark } from '../content/markdown'
 import { Site } from '../content/site'
 
@@ -21,18 +22,7 @@ const IndexPage = ({ data }: IndexPageProps) => (
       ]}
     />
     <h1>Markdown Content</h1>
-    <ul>
-      {data.allMarkdownRemark.edges
-        .filter(({ node }) => !node.frontmatter.draft)
-        .map(({ node }) => (
-          <li>
-            <GatsbyLink key={node.id} to={node.frontmatter.path}>
-              {node.frontmatter.title}
-            </GatsbyLink>{' '}
-            ({node.frontmatter.date})
-          </li>
-        ))}
-    </ul>
+    <ContentList edges={data.allMarkdownRemark.edges} />
     <GatsbyLink to="/tags">All tags</GatsbyLink>
   </div>
 )
@@ -56,7 +46,6 @@ export const pageQuery = graphql`
           excerpt(pruneLength: 250)
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
-            draft
             path
             title
           }
