@@ -1,7 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import GatsbyLink from 'gatsby-link'
-import { MarkdownRemarkEdges } from '../content/markdown'
 
 type ContentListProps = {
   readonly edges: MarkdownRemarkEdges

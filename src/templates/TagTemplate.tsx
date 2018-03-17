@@ -1,8 +1,6 @@
 import * as React from 'react'
 import Helmet from 'react-helmet'
 import GatsbyLink from 'gatsby-link'
-import { AllMarkdownRemark } from '../content/markdown'
-import { Site } from '../content/site'
 import { ContentList } from '../components/ContentList'
 
 type TagTemplateProps = {

@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { configure, shallow } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
+import { merge } from 'ramda'
 import { ContentList } from '../ContentList';
-import { MarkdownRemarkEdge } from '../../content/markdown'
 
 configure({ adapter: new Adapter() })
 
-function createEdge (path: string, title: string): MarkdownRemarkEdge {
-  return {
+function createEdge (override: DeepPartial<MarkdownRemarkEdge>): MarkdownRemarkEdge {
+  return merge({
     node: {
       id: '',
       excerpt: '',
@@ -15,19 +15,19 @@ function createEdge (path: string, title: string): MarkdownRemarkEdge {
       frontmatter: {
         date: '',
         draft: false,
-        path,
-        tags: [''],
-        title
+        path: '',
+        tags: [],
+        title: ''
       }
     }
-  }
+  }, override)
 }
 
 describe('<ContentList />', () => {
   it('renders a list of content links', () => {
     const edges: ReadonlyArray<MarkdownRemarkEdge> = [
-      createEdge('/path/1', 'Content 1'),
-      createEdge('/path/2', 'Content 2'),
+      createEdge({ node: { frontmatter: { path: '/path/1', title: 'Content 1' } } }),
+      createEdge({ node: { frontmatter: { path: '/path/2', title: 'Content 2' } } }),
     ]
 
     const component = shallow(<ContentList edges={edges} />)

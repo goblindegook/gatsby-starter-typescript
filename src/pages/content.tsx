@@ -2,8 +2,6 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import GatsbyLink from 'gatsby-link'
 import { ContentList } from '../components/ContentList'
-import { AllMarkdownRemark } from '../content/markdown'
-import { Site } from '../content/site'
 
 type IndexPageProps = {
   readonly data: {
