@@ -62,6 +62,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "prebuild": "yarn lint && yarn test",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "test": "jest"
   },
