@@ -10,7 +10,7 @@ export const IndexPage = () => (
       <GatsbyLink to="/another-page/">Go to another page</GatsbyLink>
     </p>
     <p>
-      <GatsbyLink to="/content/">
+      <GatsbyLink to="/all/">
         See content generated from Markdown files
       </GatsbyLink>
     </p>

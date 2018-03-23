@@ -2,8 +2,6 @@ import * as React from 'react'
 import { kebabCase } from 'lodash'
 import Helmet from 'react-helmet'
 import GatsbyLink from 'gatsby-link'
-import { AllMarkdownRemark } from '../content/markdown'
-import { Site } from '../content/site'
 
 type TagsPageProps = {
   readonly data: {
@@ -17,8 +15,8 @@ type TagsPageProps = {
   }
 }
 
-const TagsPage = ({ data }: TagsPageProps) => {
-  const { allMarkdownRemark, site } = data
+const TagsPage = (props: TagsPageProps) => {
+  const { allMarkdownRemark, site } = props.data
 
   return (
     <div>

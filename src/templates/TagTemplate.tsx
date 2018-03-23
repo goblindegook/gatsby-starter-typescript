@@ -2,10 +2,17 @@ import * as React from 'react'
 import Helmet from 'react-helmet'
 import GatsbyLink from 'gatsby-link'
 import { ContentList } from '../components/ContentList'
+import { Pager } from '../components/Pager'
 
 type TagTemplateProps = {
   readonly pathContext: {
     readonly tag?: string
+    readonly slug?: string
+    readonly group: ReadonlyArray<MarkdownRemarkEdge>
+    readonly prefix: string
+    readonly page: number
+    readonly pageTotal: number
+    readonly itemTotal: number
   }
   readonly data: {
     readonly allMarkdownRemark: AllMarkdownRemark
@@ -13,18 +20,19 @@ type TagTemplateProps = {
   }
 }
 
-const TagTemplate = ({ data, pathContext }: TagTemplateProps) => {
-  const { tag } = pathContext
-  const { allMarkdownRemark, site } = data
-  const { totalCount, edges } = allMarkdownRemark
+const TagTemplate = (props: TagTemplateProps) => {
+  const { group, page, prefix, pageTotal, tag } = props.pathContext
+  const { site } = props.data
+
+  console.log(props.pathContext)
 
   return (
     <div>
       <Helmet title={`Content Tagged "${tag}" - ${site.siteMetadata.title}`} />
-      <h1>{`${totalCount} ${
-        totalCount === 1 ? 'item' : 'items'
-      } tagged with "${tag}"`}</h1>
-      <ContentList edges={edges} />
+      <h1>{`Content tagged with "${tag}"`}</h1>
+      <ContentList edges={group} />
+      <Pager page={page} prefix={prefix} total={pageTotal} />
+      <hr />
       <GatsbyLink to="/tags">All tags</GatsbyLink>
     </div>
   )
@@ -32,6 +40,7 @@ const TagTemplate = ({ data, pathContext }: TagTemplateProps) => {
 
 export default TagTemplate
 
+// FIXME: allMarkdownRemark() {} is being ignored
 export const pageQuery = graphql`
   query TagPage($tag: String) {
     site {

@@ -8,11 +8,43 @@ const path = require('path')
 const { kebabCase } = require('lodash')
 const { uniq } = require('ramda')
 
+const getPageIndex = index => (index === 0 ? '' : index + 1)
+
+const defaultBuildPath = (index, pathPrefix) => index > 1 ? `${pathPrefix}/${index}` : `/${pathPrefix}`
+
+const createPaginatedPages = ({
+  edges,
+  createPage,
+  template,
+  length = 10,
+  prefix = '',
+  buildPath = defaultBuildPath,
+  context = {}
+}) => {
+  edges
+    .map((edge, index) => index % length === 0 && edges.slice(index, index + length))
+    .filter(group => group)
+    .forEach((group, index, groups) => {
+      const pageIndex = getPageIndex(index)
+      return createPage({
+        path: buildPath(pageIndex, prefix),
+        component: path.resolve(template),
+        context: {
+          ...context,
+          group,
+          prefix,
+          page: index + 1,
+          pageTotal: groups.length,
+          itemTotal: edges.length
+        }
+      })
+    })
+}
+
 exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators
 
-  const ContentTemplate = path.resolve('src/templates/ContentTemplate.tsx')
-  const TagTemplate = path.resolve('src/templates/TagTemplate.tsx')
+  const SingleTemplate = path.resolve('src/templates/SingleTemplate.tsx')
 
   return graphql(`
     {
@@ -23,9 +55,13 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       ) {
         edges {
           node {
+            id
+            excerpt(pruneLength: 250)
             frontmatter {
+              date(formatString: "MMMM DD, YYYY")
               path
               tags
+              title
             }
           }
         }
@@ -36,28 +72,44 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       return Promise.reject(result.errors)
     }
 
-    const items = result.data.allMarkdownRemark.edges
+    const edges = result.data.allMarkdownRemark.edges
 
-    // Create content pages:
-    items.forEach(({ node }) => {
+    // Create single content pages:
+    edges.forEach(({ node }) => {
       createPage({
         path: node.frontmatter.path,
-        component: ContentTemplate
+        component: SingleTemplate
       })
     })
 
-    // Create tag pages:
+    // Create full content list:
+    createPaginatedPages({
+      edges,
+      createPage,
+      template: 'src/templates/IndexTemplate.tsx',
+      length: 10,
+      prefix: 'all'
+    })
 
-    const tags = uniq(items.reduce((acc, { node }) => [
+    // Create content lists by tag:
+    const tags = uniq(edges.reduce((acc, { node }) => [
       ...acc,
       ...node.frontmatter.tags
     ], []))
 
     tags.forEach(tag => {
-      createPage({
-        path: `/tags/${kebabCase(tag)}/`,
-        component: TagTemplate,
-        context: { tag }
+      const slug = kebabCase(tag)
+
+      createPaginatedPages({
+        edges,
+        createPage,
+        template: 'src/templates/TagTemplate.tsx',
+        length: 10,
+        prefix: `tags/${slug}`,
+        context: {
+          slug,
+          tag
+        }
       })
     })
   })
