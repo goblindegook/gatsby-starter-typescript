@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { kebabCase } from 'lodash'
 import Helmet from 'react-helmet'
 import GatsbyLink from 'gatsby-link'
+import kebabCase = require('lodash/kebabCase')
 
 type TagsPageProps = {
   readonly data: {
