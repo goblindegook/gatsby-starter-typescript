@@ -8,42 +8,39 @@ const path = require('path')
 const { kebabCase } = require('lodash')
 const { uniq } = require('ramda')
 
-const getPageIndex = index => (index === 0 ? '' : index + 1)
-
-const defaultBuildPath = (index, pathPrefix) => index > 1 ? `${pathPrefix}/${index}` : `/${pathPrefix}`
+const defaultBuildPath = (page, prefix) => page > 1 ? `${prefix}/${page}` : `/${prefix}`
 
 const createPaginatedPages = ({
   edges,
   createPage,
-  template,
-  length = 10,
+  component,
+  limit = 10,
   prefix = '',
   buildPath = defaultBuildPath,
   context = {}
 }) => {
   edges
-    .map((edge, index) => index % length === 0 && edges.slice(index, index + length))
+    .map((edge, index) => index % limit === 0 && edges.slice(index, index + limit))
     .filter(group => group)
-    .forEach((group, index, groups) => {
-      const pageIndex = getPageIndex(index)
-      return createPage({
-        path: buildPath(pageIndex, prefix),
-        component: path.resolve(template),
-        context: {
-          ...context,
-          group,
-          prefix,
-          page: index + 1,
-          pageTotal: groups.length,
-          itemTotal: edges.length
-        }
-      })
-    })
+    .forEach((group, index, groups) => createPage({
+      path: buildPath(index + 1, prefix),
+      component,
+      context: {
+        ...context,
+        group,
+        prefix,
+        page: index + 1,
+        pageTotal: groups.length,
+        itemTotal: edges.length
+      }
+    }))
 }
 
 exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators
 
+  const IndexTemplate = path.resolve('src/templates/IndexTemplate.tsx')
+  const TagTemplate = path.resolve('src/templates/TagTemplate.tsx')
   const SingleTemplate = path.resolve('src/templates/SingleTemplate.tsx')
 
   return graphql(`
@@ -86,8 +83,8 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
     createPaginatedPages({
       edges,
       createPage,
-      template: 'src/templates/IndexTemplate.tsx',
-      length: 10,
+      component: IndexTemplate,
+      limit: 10,
       prefix: 'all'
     })
 
@@ -101,10 +98,10 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       const slug = kebabCase(tag)
 
       createPaginatedPages({
-        edges,
+        edges: edges.filter(({ node }) => node.frontmatter.tags.includes(tag)),
         createPage,
-        template: 'src/templates/TagTemplate.tsx',
-        length: 10,
+        component: TagTemplate,
+        limit: 10,
         prefix: `tags/${slug}`,
         context: {
           slug,
