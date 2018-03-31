@@ -1,6 +1,6 @@
 # gatsby-starter-typescript
 
-A Gatsby starter using [TypeScript](https://www.typescriptlang.org) and [styled-components](https://www.styled-components.com).
+A Gatsby starter using [TypeScript](https://www.typescriptlang.org) and [emotion](https://emotion.sh).
 
 View the [demo](https://goblindegook-gatsby-starter-typescript.netlify.com).
 
@@ -28,12 +28,12 @@ npm run develop
 ## Gatsby Plugins
 
 * gatsby-plugin-catch-links
+* gatsby-plugin-emotion
 * gatsby-plugin-manifest
 * gatsby-plugin-netlify
 * gatsby-plugin-offline
 * gatsby-plugin-react-helmet
 * gatsby-plugin-sharp
-* gatsby-plugin-styled-components
 * gatsby-plugin-typescript
 * gatsby-remark-copy-linked-files
 * gatsby-remark-images
@@ -45,5 +45,5 @@ npm run develop
 
 ## Tools
 
-* Testing: [Jest](https://facebook.github.io/jest/) and [Enzyme](http://airbnb.io/enzyme/)
+* Testing: [Jest](https://facebook.github.io/jest/) and [react-testing-library](https://github.com/kentcdodds/react-testing-library)
 * Linter: [TSLint](https://palantir.github.io/tslint/) with the tslint-config-standard and tslint-immutable configurations.

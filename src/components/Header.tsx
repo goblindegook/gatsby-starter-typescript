@@ -1,19 +1,19 @@
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import GatsbyLink from 'gatsby-link'
 
-const Container = styled.div`
+const Container = styled('div')`
   background: navy;
   margin-bottom: 1.45rem;
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   margin: 0 auto;
   max-width: 960px;
   padding: 1.45rem 1.0875rem;
 `
 
-const Title = styled.h1`
+const Title = styled('h1')`
   font-family: sans-serif;
   margin: 0;
 `
@@ -27,9 +27,7 @@ export const Header = () => (
   <Container>
     <Wrapper>
       <Title>
-        <TitleLink to="/">
-          Gatsby Starter
-        </TitleLink>
+        <TitleLink to="/">Gatsby Starter</TitleLink>
       </Title>
     </Wrapper>
   </Container>

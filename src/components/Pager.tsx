@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import GatsbyLink from 'gatsby-link'
 
 type PagerProps = {
@@ -8,7 +8,7 @@ type PagerProps = {
   readonly total: number
 }
 
-function pageUrl (prefix: string, page: number): string {
+function pageUrl(prefix: string, page: number): string {
   return page <= 1 ? `/${prefix}` : `/${prefix}/${page}`
 }
 
@@ -18,12 +18,13 @@ const Link = styled(GatsbyLink)`
   color: #fff;
   font-family: sans-serif;
   margin: 0 1rem 0 0;
-  padding: .25rem .5rem;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
 `
 
 export const Pager = ({ prefix, page, total }: PagerProps) => (
   <div>
-    {page > 1 && <GatsbyLink to={pageUrl(prefix, page - 1)}>Previous</GatsbyLink>}
-    {page < total && <GatsbyLink to={pageUrl(prefix, page + 1)}>Next</GatsbyLink>}
+    {page > 1 && <Link to={pageUrl(prefix, page - 1)}>Previous</Link>}
+    {page < total && <Link to={pageUrl(prefix, page + 1)}>Next</Link>}
   </div>
 )

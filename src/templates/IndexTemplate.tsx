@@ -8,7 +8,7 @@ type IndexPageProps = {
   readonly data: {
     readonly allMarkdownRemark: AllMarkdownRemark
     readonly site: Site
-  },
+  }
   readonly pathContext: {
     readonly group: ReadonlyArray<MarkdownRemarkEdge>
     readonly prefix: string
@@ -29,7 +29,11 @@ const IndexTemplate = (props: IndexPageProps) => (
     />
     <h1>All Markdown Content</h1>
     <ContentList edges={props.pathContext.group} />
-    <Pager page={props.pathContext.page} prefix={props.pathContext.prefix} total={props.pathContext.pageTotal} />
+    <Pager
+      page={props.pathContext.page}
+      prefix={props.pathContext.prefix}
+      total={props.pathContext.pageTotal}
+    />
     <hr />
     <GatsbyLink to="/tags">All tags</GatsbyLink>
   </div>
