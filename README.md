@@ -29,6 +29,7 @@ npm run develop
 
 * gatsby-plugin-catch-links
 * gatsby-plugin-emotion
+* gatsby-plugin-feed
 * gatsby-plugin-manifest
 * gatsby-plugin-netlify
 * gatsby-plugin-offline

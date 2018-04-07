@@ -67,7 +67,7 @@ module.exports = {
                 allMarkdownRemark(
                   limit: 1000,
                   sort: { order: DESC, fields: [frontmatter___date] },
-                  filter: {frontmatter: { draft: { ne: true } }}
+                  filter: { frontmatter: { draft: { ne: true } } }
                 ) {
                   edges {
                     node {
@@ -91,8 +91,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'GatsbyJS',
-        short_name: 'GatsbyJS',
+        name: 'gatsby-starter-typescript',
+        short_name: 'GatsbyTS',
         start_url: '/',
         background_color: '#f7f0eb',
         theme_color: '#a2466c',
