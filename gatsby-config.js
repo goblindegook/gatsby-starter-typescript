@@ -1,7 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: 'gatsby-starter-typescript',
-    author: 'Luís Rodrigues'
+    author: 'Luís Rodrigues',
+    description: 'A Gatsby starter using TypeScript.',
+    siteUrl: 'https://goblindegook-gatsby-starter-typescript.netlify.com'
   },
   plugins: [
     'gatsby-plugin-typescript',
@@ -30,6 +32,59 @@ module.exports = {
             }
           },
           'gatsby-remark-copy-linked-files'
+        ]
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.edges.map(edge => {
+                return {
+                  ...edge.node.frontmatter,
+                  description: edge.node.excerpt,
+                  url: site.siteMetadata.siteUrl + edge.node.frontmatter.path,
+                  guid: site.siteMetadata.siteUrl + edge.node.frontmatter.path,
+                  custom_elements: [{ 'content:encoded': edge.node.html }]
+                }
+              })
+            },
+            query: `
+              {
+                allMarkdownRemark(
+                  limit: 1000,
+                  sort: { order: DESC, fields: [frontmatter___date] },
+                  filter: {frontmatter: { draft: { ne: true } }}
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      frontmatter {
+                        title
+                        date
+                        path
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: '/rss.xml'
+          }
         ]
       }
     },

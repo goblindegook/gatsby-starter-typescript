@@ -24,8 +24,6 @@ const TagTemplate = (props: TagTemplateProps) => {
   const { group, page, prefix, pageTotal, tag } = props.pathContext
   const { site } = props.data
 
-  console.log(props.pathContext)
-
   return (
     <div>
       <Helmet title={`Content Tagged "${tag}" - ${site.siteMetadata.title}`} />
