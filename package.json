@@ -42,7 +42,9 @@
     "@types/react-helmet": "^5.0.5",
     "@types/react-router": "^4.0.22",
     "@types/react-router-dom": "^4.2.4",
+    "husky": "^0.14.3",
     "jest": "^22.4.2",
+    "lint-staged": "^7.0.4",
     "prettier": "^1.11.1",
     "react-testing-library": "^1.9.2",
     "ts-jest": "^22.4.1",
@@ -63,8 +65,15 @@
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
     "prebuild": "yarn lint && yarn test",
+    "precommit": "lint-staged",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "test": "jest"
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,css,md,ts,tsx}": [
+      "yarn format",
+      "git add"
+    ]
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./jest-setup.js",
