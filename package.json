@@ -63,14 +63,14 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "format": "prettier --write 'src/**/*.{ts,tsx}' '*.js'",
     "prebuild": "yarn lint && yarn test",
     "precommit": "lint-staged",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "test": "jest"
   },
   "lint-staged": {
-    "*.{js,jsx,json,css,md,ts,tsx}": [
+    "*.{js,ts,tsx}": [
       "yarn format",
       "git add"
     ]
