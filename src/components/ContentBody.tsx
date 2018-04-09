@@ -1,16 +1,20 @@
 import * as React from 'react'
-import { css } from 'react-emotion'
+import { css, cx } from 'react-emotion'
 
 type ContentBodyProps = {
+  readonly className?: string
   readonly html: string
 }
 
-const markdown = css`
+const content = css`
   a {
     color: red;
   }
 `
 
-export const ContentBody = ({ html }: ContentBodyProps) => (
-  <div className={markdown} dangerouslySetInnerHTML={{ __html: html }} />
+export const ContentBody = ({ className, html }: ContentBodyProps) => (
+  <div
+    className={cx(content, className)}
+    dangerouslySetInnerHTML={{ __html: html }}
+  />
 )

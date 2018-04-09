@@ -4,10 +4,15 @@ import { ContentBody } from '../ContentBody'
 
 describe('<ContentBody />', () => {
   it('renders a list of content links', () => {
-    const html = '<h1 id="test">OK</h1>'
+    const { container } = render(<ContentBody html="OK" />)
+    expect(container.querySelector('div')!.innerHTML).toBe('OK')
+  })
 
-    const { container } = render(<ContentBody html={html} />)
-
-    expect(container.querySelector('#test')!.innerHTML).toBe('OK')
+  it('renders a custom className', () => {
+    const className = 'test'
+    const { container } = render(
+      <ContentBody className={className} html="OK" />
+    )
+    expect(container.querySelector('div')!.classList).toContain(className)
   })
 })
