@@ -27,7 +27,7 @@ const IndexTemplate = (props: IndexPageProps) => (
         { name: 'keywords', content: 'sample, something' }
       ]}
     />
-    <h1>All Markdown Content</h1>
+    <h2>All Markdown Content</h2>
     <ContentList edges={props.pathContext.group} />
     <Pager
       page={props.pathContext.page}

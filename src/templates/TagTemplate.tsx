@@ -27,7 +27,7 @@ const TagTemplate = (props: TagTemplateProps) => {
   return (
     <div>
       <Helmet title={`Content Tagged "${tag}" - ${site.siteMetadata.title}`} />
-      <h1>{`Content tagged with "${tag}"`}</h1>
+      <h2>{`Content tagged with "${tag}"`}</h2>
       <ContentList edges={group} />
       <Pager page={page} prefix={prefix} total={pageTotal} />
       <hr />

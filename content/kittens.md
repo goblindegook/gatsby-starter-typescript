@@ -21,4 +21,4 @@ function greeting (name: string): string {
 console.log(greeting('GatsbyJS'))
 ```
 
-Go back to the [content index](/content/).
+Go back to the [content index](/all).

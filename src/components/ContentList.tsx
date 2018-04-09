@@ -1,31 +1,29 @@
 import * as React from 'react'
-import styled from 'react-emotion'
+import { css } from 'react-emotion'
 import GatsbyLink from 'gatsby-link'
 
 type ContentListProps = {
   readonly edges: MarkdownRemarkEdges
 }
 
-const List = styled('ul')`
+const list = css`
   font-family: sans-serif;
   line-height: 1.8;
   list-style: none;
   padding: 0;
 `
 
-const Item = styled('li')``
+const item = css``
 
 export const ContentList = ({ edges }: ContentListProps) => (
-  <List>
+  <ul className={list}>
     {edges.map(({ node }) => {
       const { path, title } = node.frontmatter
       return (
-        <Item key={path}>
+        <li className={item} key={path}>
           <GatsbyLink to={path}>{title}</GatsbyLink> ({node.frontmatter.date})
-        </Item>
+        </li>
       )
     })}
-  </List>
+  </ul>
 )
-
-export default ContentList

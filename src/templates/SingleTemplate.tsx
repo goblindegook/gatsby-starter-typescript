@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Helmet from 'react-helmet'
-import { MarkdownRemark } from '../content/markdown'
-import { Site } from '../content/site'
+import { ContentBody } from '../components/ContentBody'
 
 type ContentTemplateProps = {
   readonly data: {
@@ -16,9 +15,9 @@ const ContentTemplate = ({ data }: ContentTemplateProps) => {
   return (
     <div>
       <Helmet title={`${frontmatter.title} - ${site.siteMetadata.title}`} />
-      <h1>{frontmatter.title}</h1>
-      <h2>{frontmatter.date}</h2>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <h2>{frontmatter.title}</h2>
+      <h3>{frontmatter.date}</h3>
+      <ContentBody html={html} />
     </div>
   )
 }

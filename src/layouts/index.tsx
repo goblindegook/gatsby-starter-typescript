@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
-import styled from 'react-emotion'
+import { css } from 'react-emotion'
 import { Header } from '../components/Header'
 import 'normalize.css'
 import 'prismjs/themes/prism-okaidia.css'
@@ -9,7 +9,7 @@ type TemplateWrapperProps = {
   readonly children: any
 }
 
-const Wrapper = styled('div')`
+const wrapper = css`
   margin: 0 auto;
   max-width: 960px;
   padding: 0 1.0875rem 1.45rem;
@@ -31,7 +31,7 @@ const TemplateWrapper = ({ children }: TemplateWrapperProps) => (
       ]}
     />
     <Header />
-    <Wrapper>{children()}</Wrapper>
+    <div className={wrapper}>{children()}</div>
   </div>
 )
 
