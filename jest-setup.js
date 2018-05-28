@@ -1,4 +1,4 @@
-require('react-testing-library/extend-expect')
+require('dom-testing-library/extend-expect')
 
 global.___loader = {
   enqueue: () => {}
