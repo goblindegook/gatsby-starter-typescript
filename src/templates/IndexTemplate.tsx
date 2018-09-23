@@ -1,15 +1,16 @@
 import * as React from 'react'
+import { graphql, Link } from 'gatsby'
 import { Helmet } from 'react-helmet'
-import GatsbyLink from 'gatsby-link'
 import { ContentList } from '../components/ContentList'
 import { Pager } from '../components/Pager'
+import { Layout } from '../components/Layout'
 
 type IndexPageProps = {
   readonly data: {
     readonly allMarkdownRemark: AllMarkdownRemark
     readonly site: Site
   }
-  readonly pathContext: {
+  readonly pageContext: {
     readonly group: ReadonlyArray<MarkdownRemarkEdge>
     readonly prefix: string
     readonly page: number
@@ -19,36 +20,30 @@ type IndexPageProps = {
 }
 
 const IndexTemplate = (props: IndexPageProps) => (
-  <div>
+  <Layout>
     <Helmet
-      title={props.data.site.siteMetadata.title}
       meta={[
         { name: 'description', content: 'Sample' },
         { name: 'keywords', content: 'sample, something' }
       ]}
     />
     <h2>All Markdown Content</h2>
-    <ContentList edges={props.pathContext.group} />
+    <ContentList edges={props.pageContext.group} />
     <Pager
-      page={props.pathContext.page}
-      prefix={props.pathContext.prefix}
-      total={props.pathContext.pageTotal}
+      page={props.pageContext.page}
+      prefix={props.pageContext.prefix}
+      total={props.pageContext.pageTotal}
     />
     <hr />
-    <GatsbyLink to="/tags">All tags</GatsbyLink>
-  </div>
+    <Link to="/tags">All tags</Link>
+  </Layout>
 )
 
 export default IndexTemplate
 
 // FIXME: allMarkdownRemark() {} is being ignored
 export const pageQuery = graphql`
-  query IndexQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
+  {
     allMarkdownRemark(
       sort: { order: DESC, fields: [frontmatter___date] }
       filter: { frontmatter: { draft: { ne: true } } }

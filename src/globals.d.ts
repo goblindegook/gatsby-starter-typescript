@@ -1,7 +1,5 @@
 declare type DeepPartial<T> = { [P in keyof T]?: DeepPartial<T[P]> }
 
-declare const graphql: (query: TemplateStringsArray) => void
-
 declare type Site = {
   readonly siteMetadata: {
     readonly title: string

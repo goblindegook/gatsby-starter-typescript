@@ -38,6 +38,7 @@ npm run develop
 - gatsby-plugin-react-helmet
 - gatsby-plugin-sharp
 - gatsby-plugin-typescript
+- gatsby-plugin-typography
 - gatsby-remark-copy-linked-files
 - gatsby-remark-images
 - gatsby-remark-prismjs

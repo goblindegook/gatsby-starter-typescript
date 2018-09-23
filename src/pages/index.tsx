@@ -1,20 +1,19 @@
 import * as React from 'react'
-import GatsbyLink from 'gatsby-link'
+import { Link } from 'gatsby'
+import { Layout } from '../components/Layout'
 
 export const IndexPage = () => (
-  <div>
+  <Layout>
     <h1>Hi people</h1>
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>
     <p>
-      <GatsbyLink to="/another-page/">Go to another page</GatsbyLink>
+      <Link to="/another-page/">Go to another page</Link>
     </p>
     <p>
-      <GatsbyLink to="/all/">
-        See content generated from Markdown files
-      </GatsbyLink>
+      <Link to="/all/">See content generated from Markdown files</Link>
     </p>
-  </div>
+  </Layout>
 )
 
 export default IndexPage

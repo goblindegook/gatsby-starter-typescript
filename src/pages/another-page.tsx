@@ -1,12 +1,13 @@
 import * as React from 'react'
-import GatsbyLink from 'gatsby-link'
+import { Link } from 'gatsby'
+import { Layout } from '../components/Layout'
 
 const SecondPage = () => (
-  <div>
+  <Layout>
     <h1>Hi from the second page</h1>
     <p>Welcome to page 2</p>
-    <GatsbyLink to="/">Go back to the homepage</GatsbyLink>
-  </div>
+    <Link to="/">Go back to the homepage</Link>
+  </Layout>
 )
 
 export default SecondPage

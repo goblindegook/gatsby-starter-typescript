@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled, { css } from 'react-emotion'
-import GatsbyLink from 'gatsby-link'
+import { Link } from 'gatsby'
 
 const container = css`
   background: navy;
@@ -18,7 +18,7 @@ const title = css`
   margin: 0;
 `
 
-const TitleLink = styled(GatsbyLink)`
+const TitleLink = styled(Link)`
   color: white;
   text-decoration: none;
 `

@@ -1,11 +1,12 @@
 import * as React from 'react'
+import { graphql, Link } from 'gatsby'
 import Helmet from 'react-helmet'
-import GatsbyLink from 'gatsby-link'
 import { ContentList } from '../components/ContentList'
 import { Pager } from '../components/Pager'
+import { Layout } from '../components/Layout'
 
 type TagTemplateProps = {
-  readonly pathContext: {
+  readonly pageContext: {
     readonly tag?: string
     readonly slug?: string
     readonly group: ReadonlyArray<MarkdownRemarkEdge>
@@ -21,18 +22,17 @@ type TagTemplateProps = {
 }
 
 const TagTemplate = (props: TagTemplateProps) => {
-  const { group, page, prefix, pageTotal, tag } = props.pathContext
-  const { site } = props.data
+  const { group, page, prefix, pageTotal, tag } = props.pageContext
 
   return (
-    <div>
-      <Helmet title={`Content Tagged "${tag}" - ${site.siteMetadata.title}`} />
+    <Layout>
+      <Helmet title={`Content Tagged "${tag}"`} />
       <h2>{`Content tagged with "${tag}"`}</h2>
       <ContentList edges={group} />
       <Pager page={page} prefix={prefix} total={pageTotal} />
       <hr />
-      <GatsbyLink to="/tags">All tags</GatsbyLink>
-    </div>
+      <Link to="/tags">All tags</Link>
+    </Layout>
   )
 }
 
@@ -40,12 +40,7 @@ export default TagTemplate
 
 // FIXME: allMarkdownRemark() {} is being ignored
 export const pageQuery = graphql`
-  query TagPage($tag: String) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
+  query($tag: String) {
     allMarkdownRemark(
       limit: 2000
       sort: { fields: [frontmatter___date], order: DESC }

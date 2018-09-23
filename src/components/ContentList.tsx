@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { css } from 'react-emotion'
-import GatsbyLink from 'gatsby-link'
+import { Link } from 'gatsby'
 
 type ContentListProps = {
   readonly edges: MarkdownRemarkEdges
@@ -21,7 +21,7 @@ export const ContentList = ({ edges }: ContentListProps) => (
       const { path, title } = node.frontmatter
       return (
         <li className={item} key={path}>
-          <GatsbyLink to={path}>{title}</GatsbyLink> ({node.frontmatter.date})
+          <Link to={path}>{title}</Link> ({node.frontmatter.date})
         </li>
       )
     })}

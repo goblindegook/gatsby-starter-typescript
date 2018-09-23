@@ -8,8 +8,7 @@ const path = require('path')
 const { kebabCase } = require('lodash')
 const { uniq } = require('ramda')
 
-const defaultBuildPath = (page, prefix) =>
-  page > 1 ? `${prefix}/${page}` : `/${prefix}`
+const defaultBuildPath = (page, prefix) => (page > 1 ? `${prefix}/${page}` : `/${prefix}`)
 
 const createPaginatedPages = ({
   edges,
@@ -21,9 +20,7 @@ const createPaginatedPages = ({
   context = {}
 }) => {
   edges
-    .map(
-      (edge, index) => index % limit === 0 && edges.slice(index, index + limit)
-    )
+    .map((edge, index) => index % limit === 0 && edges.slice(index, index + limit))
     .filter(group => group)
     .forEach((group, index, groups) =>
       createPage({
@@ -41,8 +38,8 @@ const createPaginatedPages = ({
     )
 }
 
-exports.createPages = ({ boundActionCreators, graphql }) => {
-  const { createPage } = boundActionCreators
+exports.createPages = ({ actions, graphql }) => {
+  const { createPage } = actions
 
   const IndexTemplate = path.resolve('src/templates/IndexTemplate.tsx')
   const TagTemplate = path.resolve('src/templates/TagTemplate.tsx')
@@ -94,9 +91,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
     })
 
     // Create content lists by tag:
-    const tags = uniq(
-      edges.reduce((acc, { node }) => [...acc, ...node.frontmatter.tags], [])
-    )
+    const tags = uniq(edges.reduce((acc, { node }) => [...acc, ...node.frontmatter.tags], []))
 
     tags.forEach(tag => {
       const slug = kebabCase(tag)

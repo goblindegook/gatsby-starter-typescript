@@ -1,6 +1,8 @@
 import * as React from 'react'
+import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import { ContentBody } from '../components/ContentBody'
+import { Layout } from '../components/Layout'
 
 type ContentTemplateProps = {
   readonly data: {
@@ -10,27 +12,22 @@ type ContentTemplateProps = {
 }
 
 const ContentTemplate = ({ data }: ContentTemplateProps) => {
-  const { markdownRemark, site } = data
+  const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
   return (
-    <div>
-      <Helmet title={`${frontmatter.title} - ${site.siteMetadata.title}`} />
+    <Layout>
+      <Helmet title={`${frontmatter.title}`} />
       <h2>{frontmatter.title}</h2>
       <h3>{frontmatter.date}</h3>
       <ContentBody html={html} />
-    </div>
+    </Layout>
   )
 }
 
 export default ContentTemplate
 
 export const pageQuery = graphql`
-  query ContentByPath($path: String!) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
+  query($path: String!) {
     markdownRemark(frontmatter: { draft: { ne: true }, path: { eq: $path } }) {
       html
       frontmatter {
