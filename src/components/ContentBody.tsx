@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { css, cx } from 'react-emotion'
 
 type ContentBodyProps = {
@@ -13,8 +13,5 @@ const content = css`
 `
 
 export const ContentBody = ({ className, html }: ContentBodyProps) => (
-  <div
-    className={cx(content, className)}
-    dangerouslySetInnerHTML={{ __html: html }}
-  />
+  <div className={cx(content, className)} dangerouslySetInnerHTML={{ __html: html }} />
 )

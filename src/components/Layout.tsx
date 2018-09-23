@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
 import { css } from 'react-emotion'

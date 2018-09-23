@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Helmet from 'react-helmet'
 import { ContentList } from '../components/ContentList'

@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "allowJs": true,
     "declaration": false,
     "importHelpers": true,
     "jsx": "react",
     "lib": ["dom", "es2015", "es2017"],
-    "module": "commonjs",
+    "module": "esnext",
     "noEmitHelpers": false,
     "noImplicitAny": true,
     "noResolve": false,
