@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { MemoryRouter } from 'react-router'
-import { render } from 'react-testing-library'
+import { render, cleanup } from 'react-testing-library'
 import { Pager } from '../Pager'
 
 describe('<Pager />', () => {
+  beforeEach(cleanup)
+
   it('renders a pager for the first page', () => {
     const { getByText } = render(
       <MemoryRouter>
@@ -21,9 +23,10 @@ describe('<Pager />', () => {
       </MemoryRouter>
     )
 
-    expect(
-      ['Previous', 'Next'].map(text => getByText(text).getAttribute('href'))
-    ).toEqual(['/prefix', '/prefix/3'])
+    expect(['Previous', 'Next'].map(text => getByText(text).getAttribute('href'))).toEqual([
+      '/prefix',
+      '/prefix/3'
+    ])
   })
 
   it('renders a pager for the last page', () => {

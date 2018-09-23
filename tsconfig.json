@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": false,
+    "allowJs": true,
     "declaration": false,
     "importHelpers": true,
     "jsx": "react",

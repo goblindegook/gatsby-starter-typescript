@@ -1,12 +1,10 @@
 import * as React from 'react'
 import { MemoryRouter } from 'react-router'
 import { merge } from 'ramda'
-import { render } from 'react-testing-library'
+import { render, cleanup } from 'react-testing-library'
 import { ContentList } from '../ContentList'
 
-function createEdge(
-  override: DeepPartial<MarkdownRemarkEdge>
-): MarkdownRemarkEdge {
+function createEdge(override: DeepPartial<MarkdownRemarkEdge>): MarkdownRemarkEdge {
   return merge(
     {
       node: {
@@ -27,6 +25,8 @@ function createEdge(
 }
 
 describe('<ContentList />', () => {
+  beforeEach(cleanup)
+
   it('renders a list of content links', () => {
     const edges: ReadonlyArray<MarkdownRemarkEdge> = [
       createEdge({
@@ -43,10 +43,9 @@ describe('<ContentList />', () => {
       </MemoryRouter>
     )
 
-    expect(
-      ['Content 1', 'Content 2'].map(text =>
-        getByText(text).getAttribute('href')
-      )
-    ).toEqual(['/path/1', '/path/2'])
+    expect(['Content 1', 'Content 2'].map(text => getByText(text).getAttribute('href'))).toEqual([
+      '/path/1',
+      '/path/2'
+    ])
   })
 })
