@@ -68,12 +68,17 @@
     "format": "prettier --write 'src/**/*.{ts,tsx}' '*.js'",
     "prebuild": "yarn lint && yarn test",
     "precommit": "lint-staged",
-    "lint": "tslint 'src/**/*.{ts,tsx}'",
+    "lint": "tslint --project tsconfig.json 'src/**/*.{ts,tsx}'",
     "test": "jest"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "yarn format",
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "tslint --project tsconfig.json",
+      "git add"
+    ],
+    "*.{js,json,md}": [
+      "prettier --write",
       "git add"
     ]
   },
