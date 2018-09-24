@@ -7,10 +7,10 @@ type ContentListProps = {
 }
 
 const list = css`
-  font-family: sans-serif;
   line-height: 1.8;
   list-style: none;
   padding: 0;
+  margin: 1rem 0 2rem;
 `
 
 const item = css``

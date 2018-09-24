@@ -13,13 +13,18 @@ function pageUrl(prefix: string, page: number): string {
 }
 
 const NavLink = styled(Link)`
-  background-color: navy;
+  background-color: #ff5700;
   border-radius: 3px;
   color: #fff;
   font-family: sans-serif;
   margin: 0 1rem 0 0;
   padding: 0.25rem 0.5rem;
   text-decoration: none;
+
+  &:active,
+  &:hover {
+    color: #fff;
+  }
 `
 
 export const Pager = ({ prefix, page, total }: PagerProps) => (

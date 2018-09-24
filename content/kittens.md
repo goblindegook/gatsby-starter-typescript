@@ -1,8 +1,8 @@
 ---
-path: "/content/kittens/"
-date: "2018-01-07"
-title: "Kittens"
-tags: ["markdown", "kittens", "example"]
+path: '/content/kittens/'
+date: '2018-01-07'
+title: 'Kittens'
+tags: ['markdown', 'kittens', 'example']
 ---
 
 This is an example of how you can build your site around Markdown files.
@@ -14,7 +14,7 @@ Images referenced in Markdown are copied to the generated site, like these kitte
 Finally, here's some sample code with beautiful syntax highlighting thanks to PrismJS:
 
 ```typescript
-function greeting (name: string): string {
+function greeting(name: string): string {
   return `Hello, ${name}!`
 }
 

@@ -5,6 +5,8 @@ import { css } from 'react-emotion'
 import { Header } from './Header'
 import 'normalize.css'
 import 'prismjs/themes/prism-okaidia.css'
+import 'typeface-domine'
+import 'typeface-montserrat'
 
 const wrapper = css`
   margin: 0 auto;

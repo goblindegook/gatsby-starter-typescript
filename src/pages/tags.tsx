@@ -23,7 +23,7 @@ const TagsPage = (props: TagsPageProps) => {
     <Layout>
       <Helmet title="Tags" />
       <div>
-        <h1>Tags</h1>
+        <h2>Tags</h2>
         <ul>
           {allMarkdownRemark.group.map(tag => (
             <li key={tag.fieldValue}>

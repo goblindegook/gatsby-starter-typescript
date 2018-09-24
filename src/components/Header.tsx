@@ -3,7 +3,7 @@ import styled, { css } from 'react-emotion'
 import { Link } from 'gatsby'
 
 const container = css`
-  background: navy;
+  background: #ff5700;
   margin-bottom: 1.45rem;
 `
 
@@ -14,13 +14,16 @@ const wrapper = css`
 `
 
 const title = css`
-  font-family: sans-serif;
   margin: 0;
 `
 
 const TitleLink = styled(Link)`
-  color: white;
-  text-decoration: none;
+  color: #fff;
+
+  &:active,
+  &:hover {
+    color: #fff;
+  }
 `
 
 export const Header = () => (

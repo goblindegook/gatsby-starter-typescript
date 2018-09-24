@@ -9,6 +9,13 @@ module.exports = {
     'gatsby-plugin-typescript',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-emotion',
+    {
+      resolve: 'gatsby-plugin-typography',
+      options: {
+        pathToConfigModule: 'src/typography',
+        omitGoogleFont: true
+      }
+    },
     'gatsby-plugin-catch-links',
     {
       resolve: `gatsby-source-filesystem`,
