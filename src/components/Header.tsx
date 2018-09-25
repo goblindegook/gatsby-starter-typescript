@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'react-emotion'
 import { Link } from 'gatsby'
+import { Search } from './Search'
 
 const container = css`
   background: #ff5700;
@@ -8,6 +9,9 @@ const container = css`
 `
 
 const wrapper = css`
+  display: grid;
+  grid-template-columns: auto 10rem;
+  grid-template-rows: auto;
   margin: 0 auto;
   max-width: 960px;
   padding: 1.45rem 1.0875rem;
@@ -15,6 +19,11 @@ const wrapper = css`
 
 const title = css`
   margin: 0;
+  display: inline-block;
+`
+
+const search = css`
+  display: inline-block;
 `
 
 const TitleLink = styled(Link)`
@@ -32,6 +41,7 @@ export const Header = () => (
       <h1 className={title}>
         <TitleLink to="/">Gatsby Starter</TitleLink>
       </h1>
+      <Search className={search} language="en" />
     </div>
   </div>
 )

@@ -24,8 +24,47 @@ module.exports = {
         path: `${__dirname}/content`
       }
     },
+    {
+      resolve: 'gatsby-plugin-nprogress',
+      options: {
+        color: '#ff5700',
+        showSpinner: false
+      }
+    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
+    {
+      resolve: 'gatsby-plugin-lunr',
+      options: {
+        languages: [
+          {
+            name: 'en',
+            filterNodes: node => !node.frontmatter || node.frontmatter.draft !== true,
+            customEntries: [
+              {
+                title: 'Another Page',
+                content: 'Welcome to page 2',
+                path: '/another-page/'
+              }
+            ]
+          }
+        ],
+        fields: [
+          { name: 'title', store: true, attributes: { boost: 20 } },
+          { name: 'path', store: true },
+          { name: 'content' },
+          { name: 'tags' }
+        ],
+        resolvers: {
+          MarkdownRemark: {
+            title: node => node.frontmatter.title,
+            path: node => node.frontmatter.path,
+            content: node => node.rawMarkdownBody,
+            tags: node => node.frontmatter.tags
+          }
+        }
+      }
+    },
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -122,6 +161,7 @@ module.exports = {
         ]
       }
     },
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-offline',
     'gatsby-plugin-netlify'
   ]

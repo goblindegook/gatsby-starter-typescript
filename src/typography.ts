@@ -14,13 +14,13 @@ const typography = new Typography({
   boldWeight: 600,
   overrideStyles: ({ adjustFontSizeTo, scale, rhythm }, options) => ({
     'h1,h2,h3,h4,h5,h6': {
-      lineHeight: 1.1
+      lineHeight: 1.2
     },
     a: {
       color: '#ff5700',
       textDecoration: 'none'
     },
-    'a:hover,a:active': {
+    'a:hover, a:active': {
       color: options.bodyColor
     },
     blockquote: {
