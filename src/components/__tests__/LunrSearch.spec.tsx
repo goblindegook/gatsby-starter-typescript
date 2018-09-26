@@ -1,7 +1,8 @@
 import 'jest-dom/extend-expect'
 import React from 'react'
-import { render, fireEvent, cleanup } from 'react-testing-library'
+import { render, cleanup } from 'react-testing-library'
 import lunr from 'lunr'
+import { change } from '../../../__helpers__/dom'
 import { LunrSearch } from '../LunrSearch'
 
 function setupLunrIndex(store: SearchStore): void {
@@ -36,11 +37,37 @@ describe('LunrSearch', () => {
     })
 
     const { getByText, queryByText, getByLabelText } = render(<LunrSearch />)
-    fireEvent.change(getByLabelText('Search'), {
-      target: { value: 'two' }
-    })
+    change(getByLabelText('Search'), 'two')
 
     expect(queryByText('Number One')).not.toBeInTheDocument()
     expect(getByText('Number Two')).toHaveAttribute('href', '/2')
+    expect(getByText('Showing 1 result.')).toBeTruthy()
+  })
+
+  it('limit number of search results displayed', () => {
+    setupLunrIndex({
+      '1': { path: '/1', title: 'Number One' },
+      '2': { path: '/2', title: 'Number Two' },
+      '3': { path: '/2', title: 'Number Three' }
+    })
+
+    const { getByText, getAllByText, getByLabelText } = render(<LunrSearch limit={2} />)
+    change(getByLabelText('Search'), 'number')
+
+    expect(getAllByText(/Number/)).toHaveLength(2)
+    expect(getByText('Showing 2 of 3 results.')).toBeTruthy()
+  })
+
+  it('shows the number of results if limit is greater', () => {
+    setupLunrIndex({
+      '1': { path: '/1', title: 'Number One' },
+      '2': { path: '/2', title: 'Number Two' },
+      '3': { path: '/2', title: 'Number Three' }
+    })
+
+    const { getByText, getByLabelText } = render(<LunrSearch limit={9999} />)
+    change(getByLabelText('Search'), 'number')
+
+    expect(getByText('Showing 3 of 3 results.')).toBeTruthy()
   })
 })

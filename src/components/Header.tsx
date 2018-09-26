@@ -37,7 +37,7 @@ export const Header = () => (
       <h1 className={title}>
         <TitleLink to="/">Gatsby Starter</TitleLink>
       </h1>
-      <LunrSearch />
+      <LunrSearch limit={10} />
     </div>
   </div>
 )

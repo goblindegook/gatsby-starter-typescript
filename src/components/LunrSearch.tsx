@@ -1,7 +1,7 @@
 import React from 'react'
 import { css } from 'react-emotion'
 import { Link } from 'gatsby'
-import { Search } from './Search'
+import { Search, SearchFooterProps } from './Search'
 
 const accent = '#ff5700'
 
@@ -29,7 +29,9 @@ const styles = {
     margin: 0;
 
     &:last-child {
-      border-bottom: 0;
+      font-size: 0.75rem;
+      padding: 0.5rem;
+      border: 0;
     }
   `,
   link: css`
@@ -38,7 +40,7 @@ const styles = {
   `
 }
 
-function onChange(query: string): ReadonlyArray<SearchResult> {
+const onChange = (query: string): ReadonlyArray<SearchResult> => {
   const { index, store } = window.__LUNR__ && window.__LUNR__.en
   return query ? index.search(query).map(({ ref }) => store[ref]) : []
 }
@@ -49,13 +51,26 @@ const SearchLink = ({ path, title }: SearchResult) => (
   </Link>
 )
 
-export const LunrSearch = () => (
+const SearchFooter = ({ limit, results }: SearchFooterProps<SearchResult>) => (
+  <span>
+    Showing {limit ? `${Math.min(limit, results.length)} of` : null} {results.length}{' '}
+    {results.length === 1 ? 'result' : 'results'}.
+  </span>
+)
+
+type LunrSearchProps = {
+  readonly limit?: number
+}
+
+export const LunrSearch = ({ limit }: LunrSearchProps) => (
   <Search
     className={styles.wrapper}
     inputClassName={styles.input}
     listClassName={styles.list}
     itemClassName={styles.item}
+    limit={limit}
     onChange={onChange}
-    render={SearchLink}
+    renderLink={SearchLink}
+    renderFooter={SearchFooter}
   />
 )

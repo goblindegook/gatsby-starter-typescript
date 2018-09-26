@@ -1,22 +1,31 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, ReactNode } from 'react'
 import { css } from 'emotion'
 
-const hidden = css`
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-`
+const styles = {
+  hidden: css`
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  `
+}
+
+export type SearchFooterProps<T> = {
+  readonly limit?: number
+  readonly results: ReadonlyArray<T>
+}
 
 interface SearchProps<T> {
   readonly className?: string
   readonly inputClassName?: string
   readonly listClassName?: string
   readonly itemClassName?: string
+  readonly limit?: number
   readonly onChange: (query: string) => ReadonlyArray<T>
-  readonly render: (result: T) => JSX.Element
+  readonly renderLink: (result: T) => ReactNode
+  readonly renderFooter?: (props: SearchFooterProps<T>) => ReactNode
 }
 
 interface SearchState<T> {
@@ -42,24 +51,39 @@ export class Search<T> extends React.Component<SearchProps<T>, SearchState<T>> {
   }
 
   render() {
+    const {
+      className,
+      inputClassName,
+      listClassName,
+      itemClassName,
+      limit,
+      renderLink,
+      renderFooter
+    } = this.props
+
     return (
-      <div className={this.props.className}>
+      <div className={className}>
         <label>
-          <span className={hidden}>Search</span>
+          <span className={styles.hidden}>Search</span>
           <input
             type="search"
-            className={this.props.inputClassName}
+            className={inputClassName}
             value={this.state.query}
             onChange={this.search}
           />
         </label>
-        <ul className={this.props.listClassName}>
-          {this.state.results.map((result, index) => (
-            <li key={index} className={this.props.itemClassName}>
-              {this.props.render(result)}
+        {this.state.query ? (
+          <ul className={listClassName}>
+            {this.state.results.slice(0, limit).map((result, index) => (
+              <li key={index} className={itemClassName}>
+                {renderLink(result)}
+              </li>
+            ))}
+            <li className={itemClassName}>
+              {renderFooter ? renderFooter({ limit, results: this.state.results }) : null}
             </li>
-          ))}
-        </ul>
+          </ul>
+        ) : null}
       </div>
     )
   }

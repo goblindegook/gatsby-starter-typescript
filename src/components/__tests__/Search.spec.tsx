@@ -1,5 +1,6 @@
 import React from 'react'
-import { render, fireEvent, cleanup } from 'react-testing-library'
+import { render, cleanup } from 'react-testing-library'
+import { change } from '../../../__helpers__/dom'
 import { Search } from '../Search'
 
 describe('Search', () => {
@@ -12,13 +13,30 @@ describe('Search', () => {
     const renderMock = (result: any) => <span>{result}</span>
 
     const { getByText, getByLabelText } = render(
-      <Search onChange={onSearchMock} render={renderMock} />
+      <Search onChange={onSearchMock} renderLink={renderMock} />
     )
 
-    fireEvent.change(getByLabelText('Search'), { target: { value } })
+    change(getByLabelText('Search'), value)
 
     expect(onSearchMock).toHaveBeenCalledWith(value)
     expect(getByText('foo')).toBeTruthy()
     expect(getByText('bar')).toBeTruthy()
+  })
+
+  it('renders a footer', () => {
+    const onSearchMock = jest.fn(() => [])
+    const renderMock = jest.fn(() => <span />)
+
+    const { getByText, getByLabelText } = render(
+      <Search
+        onChange={onSearchMock}
+        renderLink={renderMock}
+        renderFooter={() => <div>This is the footer.</div>}
+      />
+    )
+
+    change(getByLabelText('Search'), 'query')
+
+    expect(getByText('This is the footer.')).toBeTruthy()
   })
 })
