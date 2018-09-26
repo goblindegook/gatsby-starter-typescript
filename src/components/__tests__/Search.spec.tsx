@@ -10,7 +10,7 @@ describe('Search', () => {
     const renderMock = jest.fn(() => <span />)
     const value = 'query'
 
-    const { container } = render(<Search onSearch={onSearchMock} render={renderMock} />)
+    const { container } = render(<Search onChange={onSearchMock} render={renderMock} />)
 
     const input = container.querySelector('[type="search"]') as HTMLInputElement
     fireEvent.change(input, { target: { value } })
@@ -23,7 +23,7 @@ describe('Search', () => {
     const onSearchMock = jest.fn(() => results)
     const renderMock = (result: any) => <span>{result}</span>
 
-    const { getByText, container } = render(<Search onSearch={onSearchMock} render={renderMock} />)
+    const { getByText, container } = render(<Search onChange={onSearchMock} render={renderMock} />)
 
     const input = container.querySelector('[type="search"]') as HTMLInputElement
     fireEvent.change(input, { target: { value: 'query' } })

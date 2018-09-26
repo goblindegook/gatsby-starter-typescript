@@ -5,7 +5,7 @@ interface SearchProps<T> {
   readonly inputClassName?: string
   readonly listClassName?: string
   readonly itemClassName?: string
-  readonly onSearch: (query: string) => ReadonlyArray<T>
+  readonly onChange: (query: string) => ReadonlyArray<T>
   readonly render: (result: T) => JSX.Element
 }
 
@@ -22,7 +22,7 @@ export class Search<T> extends React.Component<SearchProps<T>, SearchState<T>> {
 
   readonly search = (event: ChangeEvent<{ readonly value: string }>) => {
     const query = event.target.value
-    const results = this.props.onSearch(query)
+    const results = this.props.onChange(query)
     this.setState(s => {
       return {
         results,
