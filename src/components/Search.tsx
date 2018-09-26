@@ -1,4 +1,14 @@
 import React, { ChangeEvent } from 'react'
+import { css } from 'emotion'
+
+const hidden = css`
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+`
 
 interface SearchProps<T> {
   readonly className?: string
@@ -34,12 +44,15 @@ export class Search<T> extends React.Component<SearchProps<T>, SearchState<T>> {
   render() {
     return (
       <div className={this.props.className}>
-        <input
-          type="search"
-          className={this.props.inputClassName}
-          value={this.state.query}
-          onChange={this.search}
-        />
+        <label>
+          <span className={hidden}>Search</span>
+          <input
+            type="search"
+            className={this.props.inputClassName}
+            value={this.state.query}
+            onChange={this.search}
+          />
+        </label>
         <ul className={this.props.listClassName}>
           {this.state.results.map((result, index) => (
             <li key={index} className={this.props.itemClassName}>

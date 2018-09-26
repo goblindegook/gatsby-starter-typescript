@@ -35,8 +35,8 @@ describe('LunrSearch', () => {
       '2': { path: '/2', title: 'Number Two' }
     })
 
-    const { getByText, queryByText, container } = render(<LunrSearch />)
-    fireEvent.change(container.querySelector('[type="search"]') as HTMLElement, {
+    const { getByText, queryByText, getByLabelText } = render(<LunrSearch />)
+    fireEvent.change(getByLabelText('Search'), {
       target: { value: 'two' }
     })
 
