@@ -79,10 +79,10 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write '{__helpers__,src}/**/*.{ts,tsx}' '*.js'",
+    "format": "prettier --write 'src/**/*.{ts,tsx}' '*.js'",
     "prebuild": "yarn lint && yarn test",
     "precommit": "lint-staged",
-    "lint": "tslint --project tsconfig.json '{__helpers__,src}/**/*.{ts,tsx}'",
+    "lint": "tslint --project tsconfig.json 'src/**/*.{ts,tsx}'",
     "test": "jest"
   },
   "lint-staged": {

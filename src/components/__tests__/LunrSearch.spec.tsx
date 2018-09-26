@@ -1,9 +1,14 @@
 import 'jest-dom/extend-expect'
 import React from 'react'
-import { render, cleanup } from 'react-testing-library'
+import { render, cleanup, fireEvent } from 'react-testing-library'
 import lunr from 'lunr'
-import { change } from '../../../__helpers__/dom'
 import { LunrSearch } from '../LunrSearch'
+
+function change(element: HTMLElement, value: string): void {
+  fireEvent.change(element, {
+    target: { value }
+  })
+}
 
 function setupLunrIndex(store: SearchStore): void {
   // tslint:disable no-object-mutation

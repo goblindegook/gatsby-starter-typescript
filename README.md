@@ -32,11 +32,14 @@ npm run develop
 - gatsby-plugin-catch-links
 - gatsby-plugin-emotion
 - gatsby-plugin-feed
+- gatsby-plugin-lunr
 - gatsby-plugin-manifest
 - gatsby-plugin-netlify
+- gatsby-plugin-nprogress
 - gatsby-plugin-offline
 - gatsby-plugin-react-helmet
 - gatsby-plugin-sharp
+- gatsby-plugin-sitemap
 - gatsby-plugin-typescript
 - gatsby-plugin-typography
 - gatsby-remark-copy-linked-files
@@ -49,5 +52,5 @@ npm run develop
 
 ## Tools
 
-- Testing: [Jest](https://facebook.github.io/jest/) and [react-testing-library](https://github.com/kentcdodds/react-testing-library)
-- Linter: [TSLint](https://palantir.github.io/tslint/) with the tslint-config-standard and tslint-immutable configurations.
+- Testing: [Jest](https://jestjs.io) and [react-testing-library](https://github.com/kentcdodds/react-testing-library)
+- Linter: [TSLint](https://palantir.github.io/tslint/) with the `tslint-config-standard` and `tslint-immutable` configurations.

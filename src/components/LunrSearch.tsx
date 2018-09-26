@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { css } from 'react-emotion'
 import { Link } from 'gatsby'
-import { Search, SearchFooterProps } from './Search'
 
 const accent = '#ff5700'
 
@@ -27,50 +26,84 @@ const styles = {
   item: css`
     border-bottom: 1px dotted ${accent};
     margin: 0;
-
-    &:last-child {
-      font-size: 0.75rem;
-      padding: 0.5rem;
-      border: 0;
-    }
   `,
   link: css`
     display: block;
     padding: 0.25rem 0.5rem;
+  `,
+  footer: css`
+    font-size: 0.75rem;
+    margin: 0;
+    padding: 0.5rem;
+    border: 0;
+  `,
+  hidden: css`
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   `
 }
 
-const onChange = (query: string): ReadonlyArray<SearchResult> => {
+const search = (query: string): ReadonlyArray<SearchResult> => {
   const { index, store } = window.__LUNR__ && window.__LUNR__.en
   return query ? index.search(query).map(({ ref }) => store[ref]) : []
 }
 
-const SearchLink = ({ path, title }: SearchResult) => (
-  <Link className={styles.link} to={path}>
-    {title}
-  </Link>
-)
-
-const SearchFooter = ({ limit, results }: SearchFooterProps<SearchResult>) => (
-  <span>
-    Showing {limit ? `${Math.min(limit, results.length)} of` : null} {results.length}{' '}
-    {results.length === 1 ? 'result' : 'results'}.
-  </span>
-)
-
-type LunrSearchProps = {
+interface LunrSearchProps {
   readonly limit?: number
 }
 
-export const LunrSearch = ({ limit }: LunrSearchProps) => (
-  <Search
-    className={styles.wrapper}
-    inputClassName={styles.input}
-    listClassName={styles.list}
-    itemClassName={styles.item}
-    limit={limit}
-    onChange={onChange}
-    renderLink={SearchLink}
-    renderFooter={SearchFooter}
-  />
-)
+interface LunrSearchState {
+  readonly query: string
+  readonly results: ReadonlyArray<SearchResult>
+}
+
+export class LunrSearch extends React.Component<LunrSearchProps, LunrSearchState> {
+  public readonly state: LunrSearchState = {
+    query: '',
+    results: []
+  }
+
+  readonly search = (event: ChangeEvent<{ readonly value: string }>) => {
+    const query = event.target.value
+    const results = search(query)
+    this.setState(() => ({ results, query }))
+  }
+
+  render() {
+    const { limit } = this.props
+    const count = this.state.results.length
+
+    return (
+      <div className={styles.wrapper}>
+        <label>
+          <span className={styles.hidden}>Search</span>
+          <input
+            type="search"
+            className={styles.input}
+            value={this.state.query}
+            onChange={this.search}
+          />
+        </label>
+        {this.state.query ? (
+          <ul className={styles.list}>
+            {this.state.results.slice(0, limit).map((result, index) => (
+              <li key={index} className={styles.item}>
+                <Link className={styles.link} to={result.path}>
+                  {result.title}
+                </Link>
+              </li>
+            ))}
+            <li className={styles.footer}>
+              Showing {limit ? `${Math.min(limit, count)} of` : null} {count}{' '}
+              {count === 1 ? 'result' : 'results'}.
+            </li>
+          </ul>
+        ) : null}
+      </div>
+    )
+  }
+}
