@@ -71,6 +71,12 @@ function onSearch(query: string): ReadonlyArray<SearchResult> {
   return query ? index.search(query).map(({ ref }) => store[ref]) : []
 }
 
+const SearchLink = ({ path, title }: SearchResult) => (
+  <Link className={resultLinkStyle} to={path}>
+    {title}
+  </Link>
+)
+
 export const Header = () => (
   <div className={container}>
     <div className={wrapper}>
@@ -83,11 +89,7 @@ export const Header = () => (
         listClassName={resultListStyle}
         itemClassName={resultItemStyle}
         onSearch={onSearch}
-        render={result => (
-          <Link className={resultLinkStyle} to={result.path}>
-            {result.title}
-          </Link>
-        )}
+        render={SearchLink}
       />
     </div>
   </div>
