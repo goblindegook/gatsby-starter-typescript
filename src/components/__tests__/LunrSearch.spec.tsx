@@ -2,7 +2,7 @@ import 'jest-dom/extend-expect'
 import React from 'react'
 import { render, fireEvent, cleanup } from 'react-testing-library'
 import lunr from 'lunr'
-import { Header } from '../Header'
+import { LunrSearch } from '../LunrSearch'
 
 function setupLunr(store: SearchStore): void {
   // tslint:disable no-object-mutation
@@ -25,19 +25,20 @@ function cleanupLunr(): void {
   // tslint:enable no-object-mutation no-delete
 }
 
-describe('Header', () => {
+describe('LunrSearch', () => {
   beforeEach(cleanup)
   beforeEach(cleanupLunr)
 
-  it('allows searching', () => {
+  it('allows searching the Lunr index and displays results', () => {
     setupLunr({
       '1': { path: '/1', title: 'Number One' },
       '2': { path: '/2', title: 'Number Two' }
     })
 
-    const { getByText, queryByText, container } = render(<Header />)
-    const input = container.querySelector('[type="search"]') as HTMLInputElement
-    fireEvent.change(input, { target: { value: 'two' } })
+    const { getByText, queryByText, container } = render(<LunrSearch />)
+    fireEvent.change(container.querySelector('[type="search"]') as HTMLElement, {
+      target: { value: 'two' }
+    })
 
     expect(queryByText('Number One')).not.toBeInTheDocument()
     expect(getByText('Number Two')).toHaveAttribute('href', '/2')
