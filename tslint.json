@@ -12,7 +12,7 @@
     "no-method-signature": true,
     "no-this": false,
     "no-class": false,
-    "no-mixed-interface": true,
+    "no-mixed-interface": false,
     "no-if-statement": true
   }
 }

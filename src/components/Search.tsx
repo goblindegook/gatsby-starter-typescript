@@ -1,62 +1,28 @@
 import React, { ChangeEvent } from 'react'
-import { Link } from 'gatsby'
-import { css, cx } from 'emotion'
 
-function getSearchResults(query: string, language: string): ReadonlyArray<SearchResult> {
-  const { index, store } = window.__LUNR__ && window.__LUNR__[language]
-  return query ? index.search(query).map(({ ref }) => store[ref]) : []
-}
-
-const searchStyle = css`
-  width: 12rem;
-`
-
-const inputStyle = css`
-  padding: 0.25rem 0.5rem;
-  width: 12rem;
-`
-
-const resultListStyle = css`
-  background-color: #fff;
-  border: 1px solid #ff5700;
-  display: block;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  width: 12rem;
-  z-index: 2;
-`
-
-const resultItemStyle = css`
-  border-bottom: 1px dotted #ff5700;
-  margin: 0;
-  padding: 0.25rem 0.5rem;
-
-  &:last-child {
-    border-bottom: 0;
-  }
-`
-
-interface SearchProps {
+interface SearchProps<T> {
   readonly className?: string
-  readonly language: string
+  readonly inputClassName?: string
+  readonly listClassName?: string
+  readonly itemClassName?: string
+  readonly onSearch: (query: string) => ReadonlyArray<T>
+  readonly render: (result: T) => JSX.Element
 }
 
-interface SearchState {
+interface SearchState<T> {
   readonly query: string
-  readonly results: ReadonlyArray<SearchResult>
+  readonly results: ReadonlyArray<T>
 }
 
-export class Search extends React.Component<SearchProps, SearchState> {
-  public readonly state: SearchState = {
+export class Search<T> extends React.Component<SearchProps<T>, SearchState<T>> {
+  public readonly state: SearchState<T> = {
     query: '',
     results: []
   }
 
   readonly search = (event: ChangeEvent<{ readonly value: string }>) => {
     const query = event.target.value
-    const results = getSearchResults(query, this.props.language)
+    const results = this.props.onSearch(query)
     this.setState(s => {
       return {
         results,
@@ -67,12 +33,17 @@ export class Search extends React.Component<SearchProps, SearchState> {
 
   render() {
     return (
-      <div className={cx(searchStyle, this.props.className)}>
-        <input className={inputStyle} type="text" value={this.state.query} onChange={this.search} />
-        <ul className={resultListStyle}>
-          {this.state.results.map(({ path, title }) => (
-            <li key={path} className={resultItemStyle}>
-              <Link to={path}>{title}</Link>
+      <div className={this.props.className}>
+        <input
+          type="search"
+          className={this.props.inputClassName}
+          value={this.state.query}
+          onChange={this.search}
+        />
+        <ul className={this.props.listClassName}>
+          {this.state.results.map((result, index) => (
+            <li key={index} className={this.props.itemClassName}>
+              {this.props.render(result)}
             </li>
           ))}
         </ul>
