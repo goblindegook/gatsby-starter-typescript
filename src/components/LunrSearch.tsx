@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react'
+import ReactDOM from 'react-dom'
 import { css } from 'react-emotion'
 import { Link } from 'gatsby'
 
@@ -59,18 +60,34 @@ interface LunrSearchProps {
 interface LunrSearchState {
   readonly query: string
   readonly results: ReadonlyArray<SearchResult>
+  readonly isActive: boolean
 }
 
 export class LunrSearch extends React.Component<LunrSearchProps, LunrSearchState> {
   public readonly state: LunrSearchState = {
     query: '',
-    results: []
+    results: [],
+    isActive: false
   }
 
-  readonly search = (event: ChangeEvent<{ readonly value: string }>) => {
+  readonly handleSearch = (event: ChangeEvent<{ readonly value: string }>) => {
     const query = event.target.value
     const results = search(query)
     this.setState(() => ({ results, query }))
+  }
+
+  readonly handleClickOutside = (ev: Event) => {
+    const element = ReactDOM.findDOMNode(this)
+    const isActive = !!this.state.query && !!element && element.contains(ev.target as Node)
+    this.setState(() => ({ isActive }))
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside, true)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside, true)
   }
 
   render() {
@@ -85,10 +102,10 @@ export class LunrSearch extends React.Component<LunrSearchProps, LunrSearchState
             type="search"
             className={styles.input}
             value={this.state.query}
-            onChange={this.search}
+            onChange={this.handleSearch}
           />
         </label>
-        {this.state.query ? (
+        {this.state.isActive ? (
           <ul className={styles.list}>
             {this.state.results.slice(0, limit).map((result, index) => (
               <li key={index} className={styles.item}>

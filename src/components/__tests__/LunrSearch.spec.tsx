@@ -67,12 +67,50 @@ describe('LunrSearch', () => {
     setupLunrIndex({
       '1': { path: '/1', title: 'Number One' },
       '2': { path: '/2', title: 'Number Two' },
-      '3': { path: '/2', title: 'Number Three' }
+      '3': { path: '/3', title: 'Number Three' }
     })
 
     const { getByText, getByLabelText } = render(<LunrSearch limit={9999} />)
     change(getByLabelText('Search'), 'number')
 
     expect(getByText('Showing 3 of 3 results.')).toBeTruthy()
+  })
+
+  it('hides search results on clicking outside the component', () => {
+    setupLunrIndex({
+      '1': { path: '/test', title: 'Test' }
+    })
+
+    const { queryByText, getByLabelText, getByTestId } = render(
+      <div>
+        <LunrSearch limit={9999} />
+        <span data-testid="outside" />
+      </div>
+    )
+
+    change(getByLabelText('Search'), 'test')
+    fireEvent.click(getByTestId('outside'))
+
+    expect(queryByText('Test')).not.toBeInTheDocument()
+  })
+
+  it('reveals search results by clicking on the component', () => {
+    setupLunrIndex({
+      '1': { path: '/test', title: 'Test' }
+    })
+
+    const { getByText, getByLabelText, getByTestId } = render(
+      <div>
+        <LunrSearch limit={9999} />
+        <span data-testid="outside" />
+      </div>
+    )
+
+    const input = getByLabelText('Search')
+    change(input, 'test')
+    fireEvent.click(getByTestId('outside'))
+    fireEvent.click(input)
+
+    expect(getByText('Test')).toBeTruthy()
   })
 })
