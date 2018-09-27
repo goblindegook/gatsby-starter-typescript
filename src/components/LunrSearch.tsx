@@ -73,7 +73,7 @@ export class LunrSearch extends React.Component<LunrSearchProps, LunrSearchState
   readonly handleSearch = (event: ChangeEvent<{ readonly value: string }>) => {
     const query = event.target.value
     const results = search(query)
-    this.setState(() => ({ results, query }))
+    this.setState(() => ({ results, query, isActive: true }))
   }
 
   readonly handleClickOutside = (ev: Event) => {
