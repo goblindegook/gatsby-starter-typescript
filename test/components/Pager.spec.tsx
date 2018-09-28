@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, cleanup } from 'react-testing-library'
-import { Pager } from '../Pager'
+import { Pager } from '../../src/components/Pager'
 
 describe('<Pager />', () => {
   beforeEach(cleanup)

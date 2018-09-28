@@ -79,10 +79,10 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write 'src/**/*.{ts,tsx}' '*.js'",
+    "format": "prettier --write '{__mocks__,src,test}/**/*.{ts,tsx}' '*.js'",
     "prebuild": "yarn lint && yarn test",
     "precommit": "lint-staged",
-    "lint": "tslint --project tsconfig.json 'src/**/*.{ts,tsx}'",
+    "lint": "tslint --project tsconfig.json '{src,test}/**/*.{ts,tsx}'",
     "test": "jest"
   },
   "lint-staged": {
@@ -119,6 +119,7 @@
       "js"
     ],
     "moduleNameMapper": {
+      "typeface-*": "identity-obj-proxy",
       ".+\\.(css|styl|less|sass|scss)$": "identity-obj-proxy",
       ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/file.js"
     },

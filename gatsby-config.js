@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'gatsby-starter-typescript',
+    title: 'TypeScript Gatsby Starter',
     author: 'Luís Rodrigues',
     description: 'A Gatsby starter using TypeScript.',
     siteUrl: 'https://goblindegook-gatsby-starter-typescript.netlify.com'

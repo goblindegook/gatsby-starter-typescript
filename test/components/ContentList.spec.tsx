@@ -1,7 +1,7 @@
 import React from 'react'
 import { merge } from 'ramda'
 import { render, cleanup } from 'react-testing-library'
-import { ContentList } from '../ContentList'
+import { ContentList } from '../../src/components/ContentList'
 
 function createEdge(override: DeepPartial<MarkdownRemarkEdge>): MarkdownRemarkEdge {
   return merge(

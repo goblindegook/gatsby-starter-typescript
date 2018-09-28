@@ -15,7 +15,15 @@ const wrapper = css`
 `
 
 type LayoutProps = {
-  readonly children?: ReadonlyArray<React.ReactNode>
+  readonly children?: React.ReactNode | ReadonlyArray<React.ReactNode>
+}
+
+type RenderData = {
+  readonly site: {
+    readonly siteMetadata: {
+      readonly title: string
+    }
+  }
 }
 
 export const Layout = ({ children }: LayoutProps) => (
@@ -29,8 +37,9 @@ export const Layout = ({ children }: LayoutProps) => (
         }
       }
     `}
-    render={data => (
+    render={(data: RenderData) => (
       <>
+        {console.log(data)}
         <Helmet
           titleTemplate={`%s - ${data.site.siteMetadata.title}`}
           defaultTitle={data.site.siteMetadata.title}
@@ -45,7 +54,7 @@ export const Layout = ({ children }: LayoutProps) => (
             }
           ]}
         />
-        <Header />
+        <Header title={data.site.siteMetadata.title} />
         <div className={wrapper}>{children}</div>
       </>
     )}

@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import { Layout } from '../components/Layout'
 
 export const IndexPage = () => (
-  <Layout>
+  <>
     <h2>Hi people</h2>
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>
@@ -13,7 +13,13 @@ export const IndexPage = () => (
     <p>
       <Link to="/all/">See content generated from Markdown files</Link>
     </p>
+  </>
+)
+
+const LayoutIndexPage = () => (
+  <Layout>
+    <IndexPage />
   </Layout>
 )
 
-export default IndexPage
+export default LayoutIndexPage

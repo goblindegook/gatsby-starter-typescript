@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, cleanup } from 'react-testing-library'
-import { ContentBody } from '../ContentBody'
+import { ContentBody } from '../../src/components/ContentBody'
 
 describe('<ContentBody />', () => {
   beforeEach(cleanup)

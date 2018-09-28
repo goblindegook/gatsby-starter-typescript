@@ -2,7 +2,7 @@ import 'jest-dom/extend-expect'
 import React from 'react'
 import { render, cleanup, fireEvent } from 'react-testing-library'
 import lunr from 'lunr'
-import { LunrSearch } from '../LunrSearch'
+import { LunrSearch } from '../../src/components/LunrSearch'
 
 function change(element: HTMLElement, value: string): void {
   fireEvent.change(element, {
