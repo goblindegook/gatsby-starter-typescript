@@ -39,7 +39,6 @@ export const Layout = ({ children }: LayoutProps) => (
     `}
     render={(data: RenderData) => (
       <>
-        {console.log(data)}
         <Helmet
           titleTemplate={`%s - ${data.site.siteMetadata.title}`}
           defaultTitle={data.site.siteMetadata.title}
