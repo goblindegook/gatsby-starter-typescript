@@ -4,7 +4,7 @@
 
 A Gatsby starter using [TypeScript](https://www.typescriptlang.org) and [emotion](https://emotion.sh).
 
-View the [demo](https://goblindegook-gatsby-starter-typescript.netlify.com).
+View the [demo site](https://gatsby-starter-typescript.netlify.com).
 
 ## Install
 
