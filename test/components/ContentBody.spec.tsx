@@ -6,13 +6,15 @@ describe('<ContentBody />', () => {
   beforeEach(cleanup)
 
   it('renders a list of content links', () => {
-    const { container } = render(<ContentBody html="OK" />)
-    expect(container.querySelector('div')!.innerHTML).toBe('OK')
+    const content = 'Test content.'
+    const { getByText } = render(<ContentBody html={content} />)
+    expect(getByText(content)).toBeTruthy()
   })
 
   it('renders a custom className', () => {
+    const content = 'Test content.'
     const className = 'test'
-    const { container } = render(<ContentBody className={className} html="OK" />)
-    expect(container.querySelector('div')!.classList).toContain(className)
+    const { getByText } = render(<ContentBody className={className} html={content} />)
+    expect(getByText(content)).toHaveClass(className)
   })
 })
