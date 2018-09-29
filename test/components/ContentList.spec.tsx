@@ -3,7 +3,7 @@ import { merge } from 'ramda'
 import { render, cleanup } from 'react-testing-library'
 import { ContentList } from '../../src/components/ContentList'
 
-function createEdge(override: DeepPartial<MarkdownRemarkEdge>): MarkdownRemarkEdge {
+function createEdge(override: DeepPartial<Edge<Markdown>>): Edge<Markdown> {
   return merge(
     {
       node: {
@@ -27,12 +27,16 @@ describe('<ContentList />', () => {
   beforeEach(cleanup)
 
   it('renders a list of content links', () => {
-    const edges: ReadonlyArray<MarkdownRemarkEdge> = [
+    const edges: Edges<Markdown> = [
       createEdge({
-        node: { frontmatter: { path: '/path/1', title: 'Content 1' } }
+        node: {
+          frontmatter: { path: '/path/1', title: 'Content 1' }
+        }
       }),
       createEdge({
-        node: { frontmatter: { path: '/path/2', title: 'Content 2' } }
+        node: {
+          frontmatter: { path: '/path/2', title: 'Content 2' }
+        }
       })
     ]
     const { getByText } = render(<ContentList edges={edges} />)

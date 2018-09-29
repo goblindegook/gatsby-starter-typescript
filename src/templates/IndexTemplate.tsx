@@ -7,11 +7,11 @@ import { Layout } from '../components/Layout'
 
 type IndexPageProps = {
   readonly data: {
-    readonly allMarkdownRemark: AllMarkdownRemark
+    readonly allMarkdownRemark: AllMarkdown
     readonly site: Site
   }
   readonly pageContext: {
-    readonly group: ReadonlyArray<MarkdownRemarkEdge>
+    readonly group: Edges<Markdown>
     readonly prefix: string
     readonly page: number
     readonly pageTotal: number

@@ -9,14 +9,14 @@ type TagTemplateProps = {
   readonly pageContext: {
     readonly tag?: string
     readonly slug?: string
-    readonly group: ReadonlyArray<MarkdownRemarkEdge>
+    readonly group: Edges<Markdown>
     readonly prefix: string
     readonly page: number
     readonly pageTotal: number
     readonly itemTotal: number
   }
   readonly data: {
-    readonly allMarkdownRemark: AllMarkdownRemark
+    readonly allMarkdownRemark: AllMarkdown
     readonly site: Site
   }
 }

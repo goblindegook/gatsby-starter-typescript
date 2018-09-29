@@ -6,7 +6,7 @@ import { Layout } from '../components/Layout'
 
 type ContentTemplateProps = {
   readonly data: {
-    readonly markdownRemark: MarkdownRemark
+    readonly markdownRemark: Markdown
     readonly site: Site
   }
 }

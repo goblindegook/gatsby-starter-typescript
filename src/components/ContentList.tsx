@@ -3,7 +3,7 @@ import { css } from 'react-emotion'
 import { Link } from 'gatsby'
 
 type ContentListProps = {
-  readonly edges: MarkdownRemarkEdges
+  readonly edges: Edges<Markdown>
 }
 
 const list = css`

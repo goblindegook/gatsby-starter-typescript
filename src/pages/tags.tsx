@@ -6,7 +6,7 @@ import { Layout } from '../components/Layout'
 
 type TagsPageProps = {
   readonly data: {
-    readonly allMarkdownRemark: AllMarkdownRemark & {
+    readonly allMarkdownRemark: AllMarkdown & {
       readonly group: ReadonlyArray<{
         readonly fieldValue: string
         readonly totalCount: number
