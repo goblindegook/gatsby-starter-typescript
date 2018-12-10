@@ -1,5 +1,6 @@
 import React from 'react'
-import styled, { css } from 'react-emotion'
+import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 import { Link } from 'gatsby'
 import { LunrSearch } from './LunrSearch'
 
@@ -36,9 +37,9 @@ type HeaderProps = {
 }
 
 export const Header = ({ title }: HeaderProps) => (
-  <div className={style.container}>
-    <div className={style.wrapper}>
-      <h1 className={style.title}>
+  <div css={style.container}>
+    <div css={style.wrapper}>
+      <h1 css={style.title}>
         <TitleLink to="/">{title}</TitleLink>
       </h1>
       <LunrSearch limit={10} />

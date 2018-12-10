@@ -1,5 +1,5 @@
 import React from 'react'
-import { css } from 'react-emotion'
+import { css } from '@emotion/core'
 import { Link } from 'gatsby'
 
 type ContentListProps = {
@@ -16,11 +16,11 @@ const list = css`
 const item = css``
 
 export const ContentList = ({ edges }: ContentListProps) => (
-  <ul className={list}>
+  <ul css={list}>
     {edges.map(({ node }) => {
       const { path, title } = node.frontmatter
       return (
-        <li className={item} key={path}>
+        <li css={item} key={path}>
           <Link to={path}>{title}</Link> ({node.frontmatter.date})
         </li>
       )

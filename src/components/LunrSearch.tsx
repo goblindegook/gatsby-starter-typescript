@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import ReactDOM from 'react-dom'
-import { css } from 'react-emotion'
+import { css } from '@emotion/core'
 import { Link } from 'gatsby'
 
 const accent = '#ff5700'
@@ -95,26 +95,26 @@ export class LunrSearch extends React.Component<LunrSearchProps, LunrSearchState
     const count = this.state.results.length
 
     return (
-      <div className={styles.wrapper}>
+      <div css={styles.wrapper}>
         <label>
-          <span className={styles.hidden}>Search</span>
+          <span css={styles.hidden}>Search</span>
           <input
             type="search"
-            className={styles.input}
+            css={styles.input}
             value={this.state.query}
             onChange={this.handleSearch}
           />
         </label>
         {this.state.isActive ? (
-          <ul className={styles.list}>
+          <ul css={styles.list}>
             {this.state.results.slice(0, limit).map((result, index) => (
-              <li key={index} className={styles.item}>
-                <Link className={styles.link} to={result.path}>
+              <li key={index} css={styles.item}>
+                <Link css={styles.link} to={result.path}>
                   {result.title}
                 </Link>
               </li>
             ))}
-            <li className={styles.footer}>
+            <li css={styles.footer}>
               Showing {limit ? `${Math.min(limit, count)} of` : null} {count}{' '}
               {count === 1 ? 'result' : 'results'}.
             </li>

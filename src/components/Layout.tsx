@@ -1,7 +1,7 @@
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
-import { css } from 'react-emotion'
+import { css } from '@emotion/core'
 import { Header } from './Header'
 import 'normalize.css'
 import 'prismjs/themes/prism-okaidia.css'
@@ -54,7 +54,7 @@ export const Layout = ({ children }: LayoutProps) => (
           ]}
         />
         <Header title={data.site.siteMetadata.title} />
-        <div className={wrapper}>{children}</div>
+        <div css={wrapper}>{children}</div>
       </>
     )}
   />

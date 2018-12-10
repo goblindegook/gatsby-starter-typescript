@@ -1,18 +1,11 @@
 {
-  "extends": ["tslint-immutable", "tslint-config-standard", "tslint-config-prettier"],
+  "extends": ["tslint-config-standard", "tslint-config-prettier"],
   "rules": {
     "no-var-keyword": true,
     "no-parameter-reassignment": true,
     "typedef": true,
-    "readonly-keyword": true,
-    "readonly-array": true,
-    "no-let": true,
-    "no-object-mutation": true,
-    "no-delete": true,
-    "no-method-signature": true,
     "no-this": false,
     "no-class": false,
-    "no-mixed-interface": false,
-    "no-if-statement": true
+    "no-mixed-interface": false
   }
 }
