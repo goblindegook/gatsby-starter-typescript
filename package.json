@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
+    "@babel/polyfill": "^7.2.5",
     "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.104",
     "@types/node": "^11.10.0",
