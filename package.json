@@ -12,7 +12,7 @@
     "emotion-server": "^10.0.4",
     "gatsby": "^2.0.7",
     "gatsby-plugin-catch-links": "^2.0.2",
-    "gatsby-plugin-emotion": "^3.0.1",
+    "gatsby-plugin-emotion": "^4.0.4",
     "gatsby-plugin-feed": "^2.0.5",
     "gatsby-plugin-lunr": "^1.2.0",
     "gatsby-plugin-manifest": "^2.0.2",
@@ -41,16 +41,16 @@
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-typography": "^0.16.13",
-    "typeface-domine": "^0.0.54",
+    "typeface-domine": "^0.0.72",
     "typeface-montserrat": "^0.0.54",
     "typography": "^0.16.17",
     "typography-breakpoint-constants": "^0.16.18"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
-    "@types/jest": "^23.3.2",
+    "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.104",
-    "@types/node": "^10.1.3",
+    "@types/node": "^11.10.0",
     "@types/ramda": "^0.25.20",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
@@ -58,12 +58,12 @@
     "@types/typography": "^0.16.0",
     "husky": "^1.0.0-rc.15",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^23.0.1",
+    "jest": "^24.1.0",
     "jest-dom": "^3.0.0",
     "lint-staged": "^8.1.0",
     "prettier": "^1.11.1",
-    "react-testing-library": "^5.1.0",
-    "ts-jest": "^23.10.1",
+    "react-testing-library": "^6.0.0",
+    "ts-jest": "^24.0.0",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.10.0",
     "tslint-config-standard": "^8.0.1",
@@ -81,9 +81,13 @@
     "develop": "gatsby develop",
     "format": "prettier --write '{__mocks__,src,test}/**/*.{ts,tsx}' '*.js'",
     "prebuild": "yarn lint && yarn test",
-    "precommit": "lint-staged",
     "lint": "tslint --project tsconfig.json '{src,test}/**/*.{ts,tsx}'",
     "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -97,7 +101,9 @@
     ]
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./setup-jest.js",
+    "setupFilesAfterEnv": [
+      "./setup-jest.js"
+    ],
     "globals": {
       "__PATH_PREFIX__": ""
     },
