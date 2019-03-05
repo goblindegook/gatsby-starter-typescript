@@ -34,6 +34,34 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
+      resolve: 'gatsby-mdx',
+      options: {
+        extensions: ['.md', '.mdx'],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: 'gatsby-remark-smartypants',
+            options: {
+              dashes: 'oldschool'
+            }
+          },
+          {
+            resolve: 'gatsby-plugin-mdx-prismjs'
+          },
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 1200,
+              sizeByPixelDensity: true
+            }
+          },
+          {
+            resolve: 'gatsby-remark-copy-linked-files',
+            options: {}
+          }
+        ]
+      }
+    },
+    {
       resolve: 'gatsby-plugin-lunr',
       options: {
         languages: [
@@ -56,80 +84,56 @@ module.exports = {
           { name: 'tags' }
         ],
         resolvers: {
-          MarkdownRemark: {
+          Mdx: {
             title: node => node.frontmatter.title,
             path: node => node.frontmatter.path,
-            content: node => node.rawMarkdownBody,
+            content: node => node.rawBody,
             tags: node => node.frontmatter.tags
           }
         }
       }
     },
     {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          'gatsby-remark-smartypants',
-          'gatsby-remark-prismjs',
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 1200
-            }
-          },
-          'gatsby-remark-copy-linked-files'
-        ]
-      }
-    },
-    {
       resolve: 'gatsby-plugin-feed',
       options: {
-        query: `
-          {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-              }
-            }
-          }
-        `,
+        /**
+         * no need to specify the other options, since they will be merged with this
+         */
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.edges.map(({ node }) => {
                 return {
-                  ...edge.node.frontmatter,
-                  description: edge.node.excerpt,
-                  url: site.siteMetadata.siteUrl + edge.node.frontmatter.path,
-                  guid: site.siteMetadata.siteUrl + edge.node.frontmatter.path,
-                  custom_elements: [{ 'content:encoded': edge.node.html }]
+                  ...node.frontmatter,
+                  description: node.excerpt,
+                  url: site.siteMetadata.siteUrl + node.frontmatter.path,
+                  guid: site.siteMetadata.siteUrl + node.frontmatter.path,
+                  custom_elements: [{ 'content:encoded': node.html }]
                 }
               })
             },
             query: `
               {
-                allMarkdownRemark(
+                allMdx(
                   limit: 1000,
                   sort: { order: DESC, fields: [frontmatter___date] },
                   filter: { frontmatter: { draft: { ne: true } } }
                 ) {
                   edges {
                     node {
-                      excerpt
-                      html
                       frontmatter {
+                        path
                         title
                         date
-                        path
                       }
+                      excerpt
+                      html
                     }
                   }
                 }
               }
             `,
-            output: '/rss.xml'
+            output: 'rss.xml'
           }
         ]
       }
