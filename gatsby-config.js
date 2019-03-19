@@ -45,7 +45,14 @@ module.exports = {
             }
           },
           {
-            resolve: 'gatsby-plugin-mdx-prismjs'
+            resolve: 'gatsby-remark-prismjs',
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: {
+                tsx: 'tsx'
+              },
+              aliases: {}
+            }
           },
           {
             resolve: 'gatsby-remark-images',
