@@ -35,7 +35,6 @@ npm run develop
 - gatsby-plugin-feed
 - gatsby-plugin-lunr
 - gatsby-plugin-manifest
-- gatsby-plugin-mdx-prismjs
 - gatsby-plugin-netlify
 - gatsby-plugin-nprogress
 - gatsby-plugin-offline
@@ -46,6 +45,7 @@ npm run develop
 - gatsby-plugin-typography
 - gatsby-remark-copy-linked-files
 - gatsby-remark-images
+- gatsby-remark-prismjs
 - gatsby-remark-smartypants
 - gatsby-source-filesystem
 - gatsby-transformer-sharp
