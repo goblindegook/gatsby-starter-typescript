@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { Link } from 'gatsby'
 import { Helmet } from 'react-helmet'
 import { ContentList } from '../components/ContentList'
 import { Pager } from '../components/Pager'
@@ -7,7 +7,7 @@ import { Layout } from '../components/Layout'
 
 type IndexPageProps = {
   readonly data: {
-    readonly allMarkdownRemark: AllMarkdown
+    readonly allMdx: AllMarkdown
     readonly site: Site
   }
   readonly pageContext: {
@@ -40,25 +40,3 @@ const IndexTemplate = (props: IndexPageProps) => (
 )
 
 export default IndexTemplate
-
-// FIXME: allMarkdownRemark() {} is being ignored
-export const pageQuery = graphql`
-  {
-    allMarkdownRemark(
-      sort: { order: DESC, fields: [frontmatter___date] }
-      filter: { frontmatter: { draft: { ne: true } } }
-    ) {
-      edges {
-        node {
-          id
-          excerpt(pruneLength: 250)
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            path
-            title
-          }
-        }
-      }
-    }
-  }
-`

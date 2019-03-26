@@ -6,13 +6,16 @@
   "dependencies": {
     "@emotion/core": "^10.0.4",
     "@emotion/styled": "^10.0.4",
+    "@mdx-js/mdx": "^0.20.1",
+    "@mdx-js/tag": "^0.20.3",
     "@reach/router": "^1.2.0",
     "@types/lunr": "^2.1.6",
     "emotion": "^10.0.4",
     "emotion-server": "^10.0.4",
     "gatsby": "^2.0.7",
+    "gatsby-mdx": "^0.4.2",
     "gatsby-plugin-catch-links": "^2.0.2",
-    "gatsby-plugin-emotion": "^3.0.1",
+    "gatsby-plugin-emotion": "^4.0.4",
     "gatsby-plugin-feed": "^2.0.5",
     "gatsby-plugin-lunr": "^1.2.0",
     "gatsby-plugin-manifest": "^2.0.2",
@@ -24,34 +27,34 @@
     "gatsby-plugin-sitemap": "^2.0.1",
     "gatsby-plugin-typescript": "^2.0.0",
     "gatsby-plugin-typography": "^2.2.0",
-    "gatsby-remark-copy-linked-files": "^2.0.5",
-    "gatsby-remark-images": "^3.0.1",
-    "gatsby-remark-prismjs": "^3.0.0",
-    "gatsby-remark-smartypants": "^2.0.5",
+    "gatsby-remark-copy-linked-files": "^2.0.9",
+    "gatsby-remark-images": "^3.0.6",
+    "gatsby-remark-prismjs": "^3.2.6",
+    "gatsby-remark-smartypants": "^2.0.8",
     "gatsby-source-filesystem": "^2.0.1",
-    "gatsby-transformer-remark": "^2.1.3",
     "gatsby-transformer-sharp": "^2.1.1",
     "gray-percentage": "^2.0.0",
     "lodash": "^4.17.5",
     "lunr": "^2.3.3",
     "normalize.css": "^8.0.0",
-    "prismjs": "^1.14.0",
+    "prismjs": "^1.15.0",
     "ramda": "^0.26.1",
     "react": "^16.5.2",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-typography": "^0.16.13",
-    "typeface-domine": "^0.0.54",
+    "typeface-domine": "^0.0.72",
     "typeface-montserrat": "^0.0.54",
     "typography": "^0.16.17",
     "typography-breakpoint-constants": "^0.16.18"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
-    "@types/jest": "^23.3.2",
+    "@babel/polyfill": "^7.2.5",
+    "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.104",
-    "@types/node": "^10.1.3",
-    "@types/ramda": "^0.25.20",
+    "@types/node": "^11.10.0",
+    "@types/ramda": "^0.26.3",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
     "@types/react-helmet": "^5.0.5",
@@ -59,12 +62,12 @@
     "core-js": "^2.6.2",
     "husky": "^1.0.0-rc.15",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^23.0.1",
+    "jest": "^24.1.0",
     "jest-dom": "^3.0.0",
     "lint-staged": "^8.1.0",
     "prettier": "^1.11.1",
-    "react-testing-library": "^5.1.0",
-    "ts-jest": "^23.10.1",
+    "react-testing-library": "^6.0.0",
+    "ts-jest": "^24.0.0",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.10.0",
     "tslint-config-standard": "^8.0.1",
@@ -82,9 +85,13 @@
     "develop": "gatsby develop",
     "format": "prettier --write '{__mocks__,src,test}/**/*.{ts,tsx}' '*.js'",
     "prebuild": "yarn lint && yarn test",
-    "precommit": "lint-staged",
     "lint": "tslint --project tsconfig.json '{src,test}/**/*.{ts,tsx}'",
     "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -98,7 +105,9 @@
     ]
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./setup-jest.js",
+    "setupFilesAfterEnv": [
+      "./setup-jest.js"
+    ],
     "globals": {
       "__PATH_PREFIX__": ""
     },

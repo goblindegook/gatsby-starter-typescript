@@ -15,7 +15,7 @@ Finally, here's some sample code with beautiful syntax highlighting thanks to Pr
 
 ```typescript
 function greeting(name: string): string {
-  return `Hello, ${name}!`
+  return 'Hello, ' + name + '!'
 }
 
 console.log(greeting('GatsbyJS'))

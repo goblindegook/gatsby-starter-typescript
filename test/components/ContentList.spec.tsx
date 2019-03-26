@@ -9,7 +9,9 @@ function createEdge(override: DeepPartial<Edge<Markdown>>): Edge<Markdown> {
       node: {
         id: '',
         excerpt: '',
-        html: '',
+        code: {
+          body: ''
+        },
         frontmatter: {
           date: '',
           draft: false,

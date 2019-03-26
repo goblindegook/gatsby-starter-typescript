@@ -4,6 +4,42 @@ declare module 'gray-percentage' {
   export default gray
 }
 
+declare module 'compass-vertical-rhythm' {
+  type Options = Partial<{
+    baseFontSize: string
+    baseLineHeight: number | string
+    rhythmUnit: '%' | 'em' | 'ex' | 'ch' | 'px' | 'rem' | 'vw' | 'vh' | 'vmin'
+    defaultRhythmBorderWidth: string
+    defaultRhythmBorderStyle:
+      | 'solid'
+      | 'none'
+      | 'hidden'
+      | 'dashed'
+      | 'dotted'
+      | 'double'
+      | 'groove'
+      | 'ridge'
+      | 'inset'
+      | 'outset'
+    roundToNearestHalfLine: boolean
+    minLinePadding: string
+  }>
+
+  interface VerticalRhythmInstance {
+    rhythm: (value?: number | null, fontSize?: string | null, offset?: number | null) => string
+    establishBaseline: () => { fontSize: string; lineHeight: string }
+    linesForFontSize: (fontSize: string) => number
+    adjustFontSizeTo: (
+      toSize: string,
+      lines?: number | 'auto' | null,
+      fromSize?: string | null
+    ) => { fontSize: string; lineHeight: string }
+  }
+
+  function VerticalRhythm(options?: Options): VerticalRhythmInstance
+  export default VerticalRhythm
+}
+
 declare module 'typography-breakpoint-constants' {
   export const LARGER_DISPLAY_WIDTH = '1600px'
   export const LARGE_DISPLAY_WIDTH = '1280px'
@@ -29,6 +65,7 @@ declare type DeepPartial<T> = { [P in keyof T]?: DeepPartial<T[P]> }
 declare type Site = {
   readonly siteMetadata: {
     readonly title: string
+    readonly description: string
     readonly author: string
   }
 }
@@ -40,7 +77,9 @@ declare type Edges<T> = ReadonlyArray<Edge<T>>
 declare type Markdown = {
   readonly id: string
   readonly excerpt?: string
-  readonly html?: string
+  readonly code: {
+    readonly body: string
+  }
   readonly frontmatter: {
     readonly date?: string
     readonly draft?: boolean

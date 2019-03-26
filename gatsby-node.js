@@ -47,7 +47,7 @@ exports.createPages = ({ actions, graphql }) => {
 
   return graphql(`
     {
-      allMarkdownRemark(
+      allMdx(
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 2000
         filter: { frontmatter: { draft: { ne: true } } }
@@ -55,12 +55,18 @@ exports.createPages = ({ actions, graphql }) => {
         edges {
           node {
             id
+            parent {
+              ... on File {
+                name
+                sourceInstanceName
+              }
+            }
             excerpt(pruneLength: 250)
             frontmatter {
-              date(formatString: "MMMM DD, YYYY")
               path
-              tags
               title
+              date(formatString: "MMMM D, YYYY")
+              tags
             }
           }
         }
@@ -71,12 +77,13 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(result.errors)
     }
 
-    const edges = result.data.allMarkdownRemark.edges
+    const edges = result.data.allMdx.edges
 
     // Create single content pages:
     edges.forEach(({ node }) => {
+      const { frontmatter, parent } = node
       createPage({
-        path: node.frontmatter.path,
+        path: frontmatter.path || `/${parent.sourceInstanceName}/${parent.name}`,
         component: SingleTemplate
       })
     })
@@ -91,13 +98,15 @@ exports.createPages = ({ actions, graphql }) => {
     })
 
     // Create content lists by tag:
-    const tags = uniq(edges.reduce((acc, { node }) => [...acc, ...node.frontmatter.tags], []))
+    const tags = uniq(
+      edges.reduce((acc, { node }) => [...acc, ...(node.frontmatter.tags || [])], [])
+    )
 
     tags.forEach(tag => {
       const slug = kebabCase(tag)
 
       createPaginatedPages({
-        edges: edges.filter(({ node }) => node.frontmatter.tags.includes(tag)),
+        edges: edges.filter(({ node }) => (node.frontmatter.tags || []).includes(tag)),
         createPage,
         component: TagTemplate,
         limit: 10,

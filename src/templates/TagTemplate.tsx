@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { Link } from 'gatsby'
 import Helmet from 'react-helmet'
 import { ContentList } from '../components/ContentList'
 import { Pager } from '../components/Pager'
@@ -16,7 +16,7 @@ type TagTemplateProps = {
     readonly itemTotal: number
   }
   readonly data: {
-    readonly allMarkdownRemark: AllMarkdown
+    readonly allMdx: AllMarkdown
     readonly site: Site
   }
 }
@@ -37,25 +37,3 @@ const TagTemplate = (props: TagTemplateProps) => {
 }
 
 export default TagTemplate
-
-// FIXME: allMarkdownRemark() {} is being ignored
-export const pageQuery = graphql`
-  query($tag: String) {
-    allMarkdownRemark(
-      limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { draft: { ne: true }, tags: { in: [$tag] } } }
-    ) {
-      totalCount
-      edges {
-        node {
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            path
-            title
-          }
-        }
-      }
-    }
-  }
-`

@@ -29,6 +29,7 @@ npm run develop
 
 ## Gatsby Plugins
 
+- gatsby-mdx
 - gatsby-plugin-catch-links
 - gatsby-plugin-emotion
 - gatsby-plugin-feed
@@ -47,10 +48,9 @@ npm run develop
 - gatsby-remark-prismjs
 - gatsby-remark-smartypants
 - gatsby-source-filesystem
-- gatsby-transformer-remark
 - gatsby-transformer-sharp
 
 ## Tools
 
 - Testing: [Jest](https://jestjs.io) and [react-testing-library](https://github.com/kentcdodds/react-testing-library)
-- Linter: [TSLint](https://palantir.github.io/tslint/) with the `tslint-config-standard` and `tslint-immutable` configurations.
+- Linter: [TSLint](https://palantir.github.io/tslint/) with the `tslint-config-standard` and `tslint-config-prettier` configurations.
