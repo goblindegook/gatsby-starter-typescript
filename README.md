@@ -53,4 +53,4 @@ npm run develop
 ## Tools
 
 - Testing: [Jest](https://jestjs.io) and [react-testing-library](https://github.com/kentcdodds/react-testing-library)
-- Linter: [TSLint](https://palantir.github.io/tslint/) with the `tslint-config-standard` and `tslint-config-prettier` configurations.
+- Linter: [ESLint via typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) with the recommended rules
