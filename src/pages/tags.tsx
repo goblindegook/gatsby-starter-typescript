@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 import { kebabCase } from 'lodash'
 import { Layout } from '../components/Layout'
 
-type TagsPageProps = {
+interface TagsPageProps {
   readonly data: {
     readonly allMdx: AllMarkdown & {
       readonly group: ReadonlyArray<{
@@ -39,6 +39,8 @@ const TagsPage = (props: TagsPageProps) => {
 
 export default TagsPage
 
+// TODO This is going to be a recurring issue, every time pageQuery occurs
+// noinspection JSUnusedGlobalSymbols
 export const pageQuery = graphql`
   {
     allMdx(limit: 2000, filter: { frontmatter: { draft: { ne: true } } }) {

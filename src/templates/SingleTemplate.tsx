@@ -3,9 +3,10 @@ import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import { Layout } from '../components/Layout'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const MDXRenderer = require('gatsby-mdx/mdx-renderer')
 
-type ContentTemplateProps = {
+interface ContentTemplateProps {
   readonly data: {
     readonly mdx: Markdown
     readonly site: Site
@@ -29,6 +30,7 @@ const ContentTemplate = ({ data }: ContentTemplateProps) => {
 
 export default ContentTemplate
 
+// noinspection JSUnusedGlobalSymbols
 export const pageQuery = graphql`
   query($path: String!) {
     mdx(frontmatter: { draft: { ne: true }, path: { eq: $path } }) {

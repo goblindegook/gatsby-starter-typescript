@@ -70,30 +70,39 @@ export class LunrSearch extends React.Component<LunrSearchProps, LunrSearchState
     isActive: false
   }
 
+  // TODO Either we change .eslintrc.js to turn off this rule, or add public
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   readonly handleSearch = (event: ChangeEvent<{ readonly value: string }>) => {
     const query = event.target.value
     const results = search(query)
     this.setState(() => ({ results, query, isActive: true }))
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   readonly handleClickOutside = (ev: Event) => {
+    // TODO refactor this using Dan Abramov's recommendations
+    // eslint-disable-next-line react/no-find-dom-node
     const element = ReactDOM.findDOMNode(this)
     const isActive = !!this.state.query && !!element && element.contains(ev.target as Node)
     this.setState(() => ({ isActive }))
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, true)
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside, true)
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   render() {
     const { limit } = this.props
     const count = this.state.results.length
 
+    // noinspection HtmlUnknownAttribute
     return (
       <div css={styles.wrapper}>
         <label>

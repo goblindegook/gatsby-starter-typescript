@@ -32,10 +32,11 @@ const TitleLink = styled(Link)`
   }
 `
 
-type HeaderProps = {
+interface HeaderProps {
   readonly title: string
 }
 
+// noinspection HtmlUnknownAttribute
 export const Header = ({ title }: HeaderProps) => (
   <div css={style.container}>
     <div css={style.wrapper}>

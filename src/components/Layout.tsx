@@ -10,11 +10,11 @@ const wrapper = css`
   padding: 0 1.0875rem 1.45rem;
 `
 
-type LayoutProps = {
+interface LayoutProps {
   readonly children?: React.ReactNode | ReadonlyArray<React.ReactNode>
 }
 
-type RenderData = {
+interface RenderData {
   readonly site: {
     readonly siteMetadata: {
       readonly title: string
@@ -22,6 +22,7 @@ type RenderData = {
   }
 }
 
+// noinspection HtmlUnknownAttribute
 export const Layout = ({ children }: LayoutProps) => (
   <StaticQuery
     query={graphql`

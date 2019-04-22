@@ -12,6 +12,7 @@ function change(element: HTMLElement, value: string): void {
 
 function setupLunrIndex(store: SearchStore): void {
   // tslint:disable no-object-mutation
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;(global as any).__LUNR__ = {
     en: {
       index: lunr(function() {
@@ -27,6 +28,7 @@ function setupLunrIndex(store: SearchStore): void {
 
 function cleanupLunrIndex(): void {
   // tslint:disable no-object-mutation no-delete
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   delete (global as any).__LUNR__
   // tslint:enable no-object-mutation no-delete
 }

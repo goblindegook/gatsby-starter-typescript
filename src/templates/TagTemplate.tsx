@@ -5,7 +5,7 @@ import { ContentList } from '../components/ContentList'
 import { Pager } from '../components/Pager'
 import { Layout } from '../components/Layout'
 
-type TagTemplateProps = {
+interface TagTemplateProps {
   readonly pageContext: {
     readonly tag?: string
     readonly slug?: string
