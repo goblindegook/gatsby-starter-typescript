@@ -15,9 +15,10 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
+    'jest/globals': true
   },
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ['@typescript-eslint', 'react', 'jest'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true
@@ -33,6 +34,7 @@ module.exports = {
     // Override some TypeScript rules just for .js files
     {
       files: ['*.js'],
+
       rules: {
         '@typescript-eslint/no-var-requires': 'off' //
       }
