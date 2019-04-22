@@ -88,7 +88,8 @@
     "develop": "gatsby develop",
     "format": "prettier --write '{__mocks__,src,test}/**/*.{ts,tsx}' '*.js'",
     "prebuild": "yarn lint && yarn test",
-    "lint": "tslint --project tsconfig.json '{src,test}/**/*.{ts,tsx}'",
+    "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
+    "lint:fix": "yarn lint --fix",
     "test": "jest"
   },
   "husky": {
@@ -99,7 +100,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --write",
-      "tslint --project tsconfig.json",
+      "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
       "git add"
     ],
     "*.{js,json,md}": [
