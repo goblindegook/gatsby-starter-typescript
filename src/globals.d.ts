@@ -60,7 +60,13 @@ declare module 'typography-breakpoint-constants' {
   export const MIN_MOBILE_MEDIA_QUERY = '@media (min-width:480px)'
 }
 
-declare type DeepPartial<T> = { [P in keyof T]?: DeepPartial<T[P]> }
+declare type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends Array<infer U>
+    ? Array<DeepPartial<U>>
+    : T[P] extends ReadonlyArray<infer U>
+    ? ReadonlyArray<DeepPartial<U>>
+    : DeepPartial<T[P]>
+}
 
 declare type Site = {
   readonly siteMetadata: {

@@ -1,6 +1,6 @@
 import React from 'react'
+import { render } from '@testing-library/react'
 import { IndexPage } from '../../src/pages/index'
-import { render } from 'react-testing-library'
 
 describe('IndexPage', () => {
   it('renders correctly', () => {
