@@ -18,10 +18,10 @@
     }
   },
   "rules": {
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-useless-constructor": 0,
-    "no-useless-constructor": 0,
-    "react/prop-types": 0
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
+    "no-useless-constructor": "off",
+    "react/prop-types": "off"
   },
   "overrides": [
     {
