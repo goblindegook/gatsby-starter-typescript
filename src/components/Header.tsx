@@ -32,7 +32,7 @@ const TitleLink = styled(Link)`
   }
 `
 
-type HeaderProps = {
+interface HeaderProps {
   readonly title: string
 }
 

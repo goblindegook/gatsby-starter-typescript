@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 
-type PagerProps = {
+interface PagerProps {
   readonly prefix: string
   readonly page: number
   readonly total: number

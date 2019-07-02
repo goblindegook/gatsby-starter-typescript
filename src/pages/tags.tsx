@@ -4,13 +4,13 @@ import Helmet from 'react-helmet'
 import { kebabCase } from 'lodash'
 import { Layout } from '../components/Layout'
 
-type TagsPageProps = {
+interface TagsPageProps {
   readonly data: {
     readonly allMdx: AllMarkdown & {
-      readonly group: ReadonlyArray<{
+      readonly group: readonly {
         readonly fieldValue: string
         readonly totalCount: number
-      }>
+      }[]
     }
     readonly site: Site
   }

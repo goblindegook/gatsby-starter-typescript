@@ -10,11 +10,11 @@ const wrapper = css`
   padding: 0 1.0875rem 1.45rem;
 `
 
-type LayoutProps = {
-  readonly children?: React.ReactNode | ReadonlyArray<React.ReactNode>
+interface LayoutProps {
+  readonly children?: React.ReactNode | readonly React.ReactNode[]
 }
 
-type RenderData = {
+interface RenderData {
   readonly site: {
     readonly siteMetadata: {
       readonly title: string

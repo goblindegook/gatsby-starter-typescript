@@ -11,7 +11,6 @@ function change(element: HTMLElement, value: string): void {
 }
 
 function setupLunrIndex(store: SearchStore): void {
-  // tslint:disable no-object-mutation
   ;(global as any).__LUNR__ = {
     en: {
       index: lunr(function() {
@@ -22,13 +21,10 @@ function setupLunrIndex(store: SearchStore): void {
       store
     }
   }
-  // tslint:enable no-object-mutation
 }
 
 function cleanupLunrIndex(): void {
-  // tslint:disable no-object-mutation no-delete
   delete (global as any).__LUNR__
-  // tslint:enable no-object-mutation no-delete
 }
 
 describe('LunrSearch', () => {
@@ -92,25 +88,5 @@ describe('LunrSearch', () => {
     fireEvent.click(getByTestId('outside'))
 
     expect(queryByText('Test')).not.toBeInTheDocument()
-  })
-
-  it('reveals search results by clicking on the component', () => {
-    setupLunrIndex({
-      '1': { path: '/test', title: 'Test' }
-    })
-
-    const { getByText, getByLabelText, getByTestId } = render(
-      <div>
-        <LunrSearch limit={9999} />
-        <span data-testid="outside" />
-      </div>
-    )
-
-    const input = getByLabelText('Search')
-    change(input, 'test')
-    fireEvent.click(getByTestId('outside'))
-    fireEvent.click(input)
-
-    expect(getByText('Test')).toBeTruthy()
   })
 })

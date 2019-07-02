@@ -3,9 +3,10 @@ import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import { Layout } from '../components/Layout'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const MDXRenderer = require('gatsby-mdx/mdx-renderer')
 
-type ContentTemplateProps = {
+interface ContentTemplateProps {
   readonly data: {
     readonly mdx: Markdown
     readonly site: Site

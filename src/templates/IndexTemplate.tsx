@@ -5,7 +5,7 @@ import { ContentList } from '../components/ContentList'
 import { Pager } from '../components/Pager'
 import { Layout } from '../components/Layout'
 
-type IndexPageProps = {
+interface IndexPageProps {
   readonly data: {
     readonly allMdx: AllMarkdown
     readonly site: Site

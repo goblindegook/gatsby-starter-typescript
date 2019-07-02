@@ -61,14 +61,14 @@ declare module 'typography-breakpoint-constants' {
 }
 
 declare type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends Array<infer U>
-    ? Array<DeepPartial<U>>
-    : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>>
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? DeepPartial<U>[]
+    : T[P] extends readonly (infer U)[]
+    ? readonly DeepPartial<U>[]
     : DeepPartial<T[P]>
 }
 
-declare type Site = {
+declare interface Site {
   readonly siteMetadata: {
     readonly title: string
     readonly description: string
@@ -76,11 +76,13 @@ declare type Site = {
   }
 }
 
-declare type Edge<T> = { readonly node: T }
+declare interface Edge<T> {
+  readonly node: T
+}
 
-declare type Edges<T> = ReadonlyArray<Edge<T>>
+declare type Edges<T> = readonly Edge<T>[]
 
-declare type Markdown = {
+declare interface Markdown {
   readonly id: string
   readonly excerpt?: string
   readonly code: {
@@ -90,7 +92,7 @@ declare type Markdown = {
     readonly date?: string
     readonly draft?: boolean
     readonly path: string
-    readonly tags?: ReadonlyArray<string>
+    readonly tags?: readonly string[]
     readonly title?: string
   }
   readonly parent?: {
@@ -109,18 +111,18 @@ declare type Markdown = {
   }
 }
 
-declare type AllMarkdown = {
+declare interface AllMarkdown {
   readonly totalCount: number
   readonly edges: Edges<Markdown>
 }
 
-declare namespace __gatsby_lunr {
+declare namespace GatsbyLunr {
   namespace Index {
     interface Attributes {
       readonly invertedIndex: object
       readonly documentVectors: { readonly [docRef: string]: Vector }
       readonly tokenSet: TokenSet
-      readonly fields: ReadonlyArray<string>
+      readonly fields: readonly string[]
       readonly pipeline: Pipeline
     }
 
@@ -137,39 +139,37 @@ declare namespace __gatsby_lunr {
   }
 
   class Index {
-    constructor(attrs: Index.Attributes)
-    readonly search: (queryString: Index.QueryString) => ReadonlyArray<Index.Result>
-    readonly query: (fn: Index.QueryBuilder) => ReadonlyArray<Index.Result>
-    readonly toJSON: () => object
-    static readonly load: (serializedIndex: object) => Index
+    public constructor(attrs: Index.Attributes)
+    public readonly search: (queryString: Index.QueryString) => readonly Index.Result[]
+    public readonly query: (fn: Index.QueryBuilder) => readonly Index.Result[]
+    public readonly toJSON: () => object
+    public static readonly load: (serializedIndex: object) => Index
   }
 
   class MatchData {
-    readonly metadata: object
-    constructor(term: string, field: string, metadata: object)
-    readonly combine: (otherMatchData: MatchData) => void
+    public readonly metadata: object
+    public constructor(term: string, field: string, metadata: object)
+    public readonly combine: (otherMatchData: MatchData) => void
   }
 
   type PipelineFunction = (
     token: Token,
     i: number,
-    tokens: ReadonlyArray<Token>
-  ) => null | Token | ReadonlyArray<Token>
+    tokens: readonly Token[]
+  ) => null | Token | readonly Token[]
 
   class Pipeline {
-    constructor()
-    static registerFunction(fn: PipelineFunction, label: string): void
-    static load(serialised: object): Pipeline
-    // tslint:disable readonly-array
-    add(...functions: PipelineFunction[]): void
-    // tslint:enable readonly-array
-    after(existingFn: PipelineFunction, newFn: PipelineFunction): void
-    before(existingFn: PipelineFunction, newFn: PipelineFunction): void
-    remove(fn: PipelineFunction): void
-    run(tokens: ReadonlyArray<Token>): ReadonlyArray<Token>
-    runString(str: string): ReadonlyArray<string>
-    reset(): void
-    toJSON(): ReadonlyArray<PipelineFunction>
+    public constructor()
+    public static registerFunction(fn: PipelineFunction, label: string): void
+    public static load(serialised: object): Pipeline
+    public add(...functions: PipelineFunction[]): void
+    public after(existingFn: PipelineFunction, newFn: PipelineFunction): void
+    public before(existingFn: PipelineFunction, newFn: PipelineFunction): void
+    public remove(fn: PipelineFunction): void
+    public run(tokens: readonly Token[]): readonly Token[]
+    public runString(str: string): readonly string[]
+    public reset(): void
+    public toJSON(): readonly PipelineFunction[]
   }
 
   namespace Query {
@@ -181,7 +181,7 @@ declare namespace __gatsby_lunr {
 
     interface Clause {
       readonly term: string
-      readonly fields: ReadonlyArray<string>
+      readonly fields: readonly string[]
       readonly boost: number
       readonly editDistance: number
       readonly usePipeline: boolean
@@ -190,25 +190,25 @@ declare namespace __gatsby_lunr {
   }
 
   class Query {
-    readonly clauses: ReadonlyArray<Query.Clause>
-    readonly allFields: ReadonlyArray<string>
-    constructor(allFields: ReadonlyArray<string>)
-    readonly clause: (clause: Query.Clause) => Query
-    readonly term: (term: string, options: object) => Query
+    public readonly clauses: readonly Query.Clause[]
+    public readonly allFields: readonly string[]
+    public constructor(allFields: readonly string[])
+    public readonly clause: (clause: Query.Clause) => Query
+    public readonly term: (term: string, options: object) => Query
   }
 
   class QueryParseError extends Error {
-    readonly name: 'QueryParseError'
-    readonly message: string
-    readonly start: number
-    readonly end: number
+    public readonly name: 'QueryParseError'
+    public readonly message: string
+    public readonly start: number
+    public readonly end: number
 
-    constructor(message: string, start: string, end: string)
+    public constructor(message: string, start: string, end: string)
   }
 
   function stemmer(token: Token): Token
 
-  function generateStopWordFilter(stopWords: ReadonlyArray<string>): PipelineFunction
+  function generateStopWordFilter(stopWords: readonly string[]): PipelineFunction
 
   function stopWordFilter(token: Token): Token
 
@@ -217,27 +217,27 @@ declare namespace __gatsby_lunr {
   }
 
   class Token {
-    constructor(str: string, metadata: object)
-    readonly toString: () => string
-    readonly update: (fn: Token.UpdateFunction) => Token
-    readonly clone: (fn?: Token.UpdateFunction) => Token
+    public constructor(str: string, metadata: object)
+    public readonly toString: () => string
+    public readonly update: (fn: Token.UpdateFunction) => Token
+    public readonly clone: (fn?: Token.UpdateFunction) => Token
   }
 
   class TokenSet {
-    constructor()
-    readonly fromArray: (arr: ReadonlyArray<string>) => TokenSet
-    readonly fromFuzzyString: (str: string, editDistance: number) => Vector
-    readonly fromString: (str: string) => TokenSet
-    readonly toArray: () => ReadonlyArray<string>
-    readonly toString: () => string
-    readonly intersect: (b: TokenSet) => TokenSet
+    public constructor()
+    public readonly fromArray: (arr: readonly string[]) => TokenSet
+    public readonly fromFuzzyString: (str: string, editDistance: number) => Vector
+    public readonly fromString: (str: string) => TokenSet
+    public readonly toArray: () => readonly string[]
+    public readonly toString: () => string
+    public readonly intersect: (b: TokenSet) => TokenSet
   }
 
   namespace tokenizer {
     const separator: RegExp
   }
 
-  function tokenizer(obj?: null | string | object | ReadonlyArray<object>): ReadonlyArray<Token>
+  function tokenizer(obj?: null | string | object | readonly object[]): readonly Token[]
 
   function trimmer(token: Token): Token
 
@@ -248,31 +248,32 @@ declare namespace __gatsby_lunr {
   }
 
   class Vector {
-    constructor(elements: ReadonlyArray<number>)
-    readonly positionForIndex: (index: number) => number
-    readonly insert: (insertIdx: number, val: number) => void
-    readonly upsert: (
+    public constructor(elements: readonly number[])
+    public readonly positionForIndex: (index: number) => number
+    public readonly insert: (insertIdx: number, val: number) => void
+    public readonly upsert: (
       insertIdx: number,
       val: number,
       fn: (existingVal: number, val: number) => number
     ) => void
-    readonly magnitude: () => number
-    readonly dot: (otherVector: Vector) => number
-    readonly similarity: (otherVector: Vector) => number
-    readonly toArray: () => ReadonlyArray<number>
-    readonly toJSON: () => ReadonlyArray<number>
+    public readonly magnitude: () => number
+    public readonly dot: (otherVector: Vector) => number
+    public readonly similarity: (otherVector: Vector) => number
+    public readonly toArray: () => readonly number[]
+    public readonly toJSON: () => readonly number[]
   }
 
   const version: string
 }
 
-interface SearchIndex extends __gatsby_lunr.Index {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface SearchIndex extends GatsbyLunr.Index {}
 
 interface SearchStore {
   readonly [key: string]: any
 }
 
-interface SearchResult extends __gatsby_lunr.Index.Result {
+interface SearchResult extends GatsbyLunr.Index.Result {
   readonly title: string
   readonly path: string
 }
@@ -288,6 +289,7 @@ declare namespace __gatsby {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Window extends __gatsby.Window {}
 
 declare var window: Window
