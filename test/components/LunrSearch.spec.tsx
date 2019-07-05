@@ -10,8 +10,8 @@ function change(element: HTMLElement, value: string): void {
   })
 }
 
-function setupLunrIndex(store: SearchStore): void {
-  ;(global as any).__LUNR__ = {
+function setupLunrIndex(store: { readonly [key: string]: any }): void {
+  window.__LUNR__ = {
     en: {
       index: lunr(function() {
         this.field('path')
@@ -24,7 +24,7 @@ function setupLunrIndex(store: SearchStore): void {
 }
 
 function cleanupLunrIndex(): void {
-  delete (global as any).__LUNR__
+  delete window.__LUNR__
 }
 
 describe('LunrSearch', () => {

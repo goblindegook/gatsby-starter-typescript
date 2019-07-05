@@ -2,6 +2,25 @@ import React, { useState } from 'react'
 import { useOutside } from '@pacote/react-use-outside'
 import { css } from '@emotion/core'
 import { Link } from 'gatsby'
+import lunr from 'lunr'
+
+declare global {
+  interface Window {
+    __LUNR__: {
+      readonly [language: string]: {
+        readonly index: lunr.Index
+        readonly store: {
+          readonly [key: string]: any
+        }
+      }
+    }
+  }
+}
+
+interface SearchResult extends lunr.Index.Result {
+  readonly title: string
+  readonly path: string
+}
 
 const accent = '#ff5700'
 
