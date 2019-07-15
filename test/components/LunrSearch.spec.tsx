@@ -1,6 +1,6 @@
-import 'jest-dom/extend-expect'
 import React from 'react'
-import { render, cleanup, fireEvent } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import { render, fireEvent } from '@testing-library/react'
 import lunr from 'lunr'
 import { LunrSearch } from '../../src/components/LunrSearch'
 
@@ -28,8 +28,7 @@ function cleanupLunrIndex(): void {
 }
 
 describe('LunrSearch', () => {
-  beforeEach(cleanup)
-  beforeEach(cleanupLunrIndex)
+  afterEach(cleanupLunrIndex)
 
   it('displays search results from the global Lunr index', () => {
     setupLunrIndex({

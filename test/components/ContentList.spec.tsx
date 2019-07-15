@@ -1,6 +1,6 @@
 import React from 'react'
 import { merge } from 'ramda'
-import { render, cleanup } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { ContentList } from '../../src/components/ContentList'
 
 function createEdge(override: DeepPartial<Edge<Markdown>>): Edge<Markdown> {
@@ -26,8 +26,6 @@ function createEdge(override: DeepPartial<Edge<Markdown>>): Edge<Markdown> {
 }
 
 describe('<ContentList />', () => {
-  beforeEach(cleanup)
-
   it('renders a list of content links', () => {
     const edges: Edges<Markdown> = [
       createEdge({

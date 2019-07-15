@@ -1,5 +1,4 @@
-import 'jest-dom/extend-expect'
-
+/* global jest */
 global.___loader = {
   enqueue: jest.fn()
 }
