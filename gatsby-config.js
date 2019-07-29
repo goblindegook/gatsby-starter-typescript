@@ -1,4 +1,33 @@
 /* eslint-disable @typescript-eslint/camelcase */
+const gatsbyRemarkPlugins = [
+  {
+    resolve: 'gatsby-remark-smartypants',
+    options: {
+      dashes: 'oldschool'
+    }
+  },
+  {
+    resolve: 'gatsby-remark-prismjs',
+    options: {
+      classPrefix: 'language-',
+      inlineCodeMarker: {
+        tsx: 'tsx'
+      },
+      aliases: {}
+    }
+  },
+  {
+    resolve: 'gatsby-remark-images',
+    options: {
+      maxWidth: 1200
+    }
+  },
+  {
+    resolve: 'gatsby-remark-copy-linked-files',
+    options: {}
+  }
+]
+
 module.exports = {
   siteMetadata: {
     title: 'TypeScript Gatsby Starter',
@@ -32,40 +61,19 @@ module.exports = {
         showSpinner: false
       }
     },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: gatsbyRemarkPlugins
+      }
+    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.md', '.mdx'],
-        gatsbyRemarkPlugins: [
-          {
-            resolve: 'gatsby-remark-smartypants',
-            options: {
-              dashes: 'oldschool'
-            }
-          },
-          {
-            resolve: 'gatsby-remark-prismjs',
-            options: {
-              classPrefix: 'language-',
-              inlineCodeMarker: {
-                tsx: 'tsx'
-              },
-              aliases: {}
-            }
-          },
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 1200
-            }
-          },
-          {
-            resolve: 'gatsby-remark-copy-linked-files',
-            options: {}
-          }
-        ]
+        gatsbyRemarkPlugins
       }
     },
     {
