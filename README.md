@@ -29,12 +29,12 @@ npm run develop
 
 ## Gatsby Plugins
 
-- gatsby-mdx
 - gatsby-plugin-catch-links
 - gatsby-plugin-emotion
 - gatsby-plugin-feed
 - gatsby-plugin-lunr
 - gatsby-plugin-manifest
+- gatsby-plugin-mdx
 - gatsby-plugin-netlify
 - gatsby-plugin-nprogress
 - gatsby-plugin-offline

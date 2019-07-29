@@ -84,10 +84,8 @@ declare type Edges<T> = readonly Edge<T>[]
 
 declare interface Markdown {
   readonly id: string
+  readonly body: string
   readonly excerpt?: string
-  readonly code: {
-    readonly body: string
-  }
   readonly frontmatter: {
     readonly date?: string
     readonly draft?: boolean

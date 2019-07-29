@@ -10,7 +10,7 @@ function change(element: HTMLElement, value: string): void {
   })
 }
 
-function setupLunrIndex(store: { readonly [key: string]: any }): void {
+function setupLunrIndex(store: { readonly [key: string]: {} }): void {
   window.__LUNR__ = {
     en: {
       index: lunr(function() {

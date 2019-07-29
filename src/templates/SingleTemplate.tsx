@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 import { Layout } from '../components/Layout'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const MDXRenderer = require('gatsby-mdx/mdx-renderer')
+const MDXRenderer = require('gatsby-plugin-mdx/mdx-renderer')
 
 interface ContentTemplateProps {
   readonly data: {
@@ -15,7 +15,7 @@ interface ContentTemplateProps {
 
 const ContentTemplate = ({ data }: ContentTemplateProps) => {
   const {
-    mdx: { frontmatter, code }
+    mdx: { frontmatter, body }
   } = data
 
   return (
@@ -23,7 +23,7 @@ const ContentTemplate = ({ data }: ContentTemplateProps) => {
       <Helmet title={`${frontmatter.title}`} />
       <h2>{frontmatter.title}</h2>
       <h3>{frontmatter.date}</h3>
-      <MDXRenderer>{code.body}</MDXRenderer>
+      <MDXRenderer>{body}</MDXRenderer>
     </Layout>
   )
 }
@@ -33,9 +33,7 @@ export default ContentTemplate
 export const pageQuery = graphql`
   query($path: String!) {
     mdx(frontmatter: { draft: { ne: true }, path: { eq: $path } }) {
-      code {
-        body
-      }
+      body
       frontmatter {
         date(formatString: "MMMM D, YYYY")
         path
