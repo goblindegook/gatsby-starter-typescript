@@ -116,6 +116,7 @@ module.exports = {
          */
         feeds: [
           {
+            title: 'Feed',
             serialize: ({ query: { site, allMdx } }) => {
               return allMdx.edges.map(({ node }) => {
                 return {
