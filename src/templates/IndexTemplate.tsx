@@ -1,25 +1,19 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
+import { IndexPageQuery, IndexPageQueryVariables } from 'generated/types/gatsby'
 import { ContentList } from '../components/ContentList'
 import { Pager } from '../components/Pager'
 import { Layout } from '../components/Layout'
+import { ArchivePageContext } from '../context'
 
 interface IndexPageProps {
-  readonly data: {
-    readonly allMdx: AllMarkdown
-    readonly site: Site
-  }
-  readonly pageContext: {
-    readonly group: Edges<Markdown>
-    readonly prefix: string
-    readonly page: number
-    readonly pageTotal: number
-    readonly itemTotal: number
-  }
+  readonly data: IndexPageQuery
+
+  readonly pageContext: ArchivePageContext & IndexPageQueryVariables
 }
 
-const IndexTemplate = (props: IndexPageProps) => (
+const IndexTemplate = ({ data, pageContext }: IndexPageProps) => (
   <Layout>
     <Helmet
       meta={[
@@ -28,15 +22,32 @@ const IndexTemplate = (props: IndexPageProps) => (
       ]}
     />
     <h2>All Markdown Content</h2>
-    <ContentList edges={props.pageContext.group} />
-    <Pager
-      page={props.pageContext.page}
-      prefix={props.pageContext.prefix}
-      total={props.pageContext.pageTotal}
-    />
+    <ContentList edges={data.allMdx.edges} />
+    <Pager page={pageContext.page} prefix={pageContext.prefix} total={pageContext.pageTotal} />
     <hr />
     <Link to="/tags">All tags</Link>
   </Layout>
 )
 
 export default IndexTemplate
+
+export const query = graphql`
+  query IndexPage($skip: Int!, $limit: Int!) {
+    allMdx(
+      filter: { frontmatter: { draft: { ne: true } } }
+      sort: { order: DESC, fields: [frontmatter___date] }
+      limit: $limit
+      skip: $skip
+    ) {
+      edges {
+        node {
+          frontmatter {
+            date(formatString: "MMMM D, YYYY")
+            path
+            title
+          }
+        }
+      }
+    }
+  }
+`

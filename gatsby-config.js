@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 const gatsbyRemarkPlugins = [
+  'gatsby-plugin-typegen',
   {
     resolve: 'gatsby-remark-smartypants',
     options: {

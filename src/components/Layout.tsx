@@ -1,6 +1,7 @@
 import React from 'react'
-import { StaticQuery, graphql } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import { Helmet } from 'react-helmet'
+import { SiteMetadataQuery } from 'generated/types/gatsby'
 import { css } from '@emotion/core'
 import { Header } from './Header'
 
@@ -14,44 +15,36 @@ interface LayoutProps {
   readonly children?: React.ReactNode | readonly React.ReactNode[]
 }
 
-interface RenderData {
-  readonly site: {
-    readonly siteMetadata: {
-      readonly title: string
-    }
-  }
-}
-
-export const Layout = ({ children }: LayoutProps) => (
-  <StaticQuery
-    query={graphql`
-      {
-        site {
-          siteMetadata {
-            title
-          }
+export const Layout = ({ children }: LayoutProps) => {
+  const data = useStaticQuery<SiteMetadataQuery>(graphql`
+    query SiteMetadata {
+      site {
+        siteMetadata {
+          title
+          description
         }
       }
-    `}
-    render={(data: RenderData) => (
-      <>
-        <Helmet
-          titleTemplate={`%s - ${data.site.siteMetadata.title}`}
-          defaultTitle={data.site.siteMetadata.title}
-          meta={[
-            {
-              name: 'description',
-              content: 'Demo site for a Gatsby Starter in TypeScript'
-            },
-            {
-              name: 'keywords',
-              content: 'gatsby, gatsbyjs, sample, demo, typescript'
-            }
-          ]}
-        />
-        <Header title={data.site.siteMetadata.title} />
-        <div css={wrapper}>{children}</div>
-      </>
-    )}
-  />
-)
+    }
+  `)
+
+  return (
+    <main>
+      <Helmet
+        titleTemplate={`%s - ${data.site.siteMetadata.title}`}
+        defaultTitle={data.site.siteMetadata.title}
+        meta={[
+          {
+            name: 'description',
+            content: data.site.siteMetadata.description
+          },
+          {
+            name: 'keywords',
+            content: 'gatsby, gatsbyjs, sample, demo, typescript'
+          }
+        ]}
+      />
+      <Header title={data.site.siteMetadata.title} />
+      <div css={wrapper}>{children}</div>
+    </main>
+  )
+}

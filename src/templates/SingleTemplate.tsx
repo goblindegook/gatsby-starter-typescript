@@ -1,16 +1,14 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
+import { SinglePageQuery } from 'generated/types/gatsby'
 import { Layout } from '../components/Layout'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MDXRenderer = require('gatsby-plugin-mdx/mdx-renderer')
 
 interface ContentTemplateProps {
-  readonly data: {
-    readonly mdx: Markdown
-    readonly site: Site
-  }
+  readonly data: SinglePageQuery
 }
 
 const ContentTemplate = ({ data }: ContentTemplateProps) => {
@@ -30,8 +28,8 @@ const ContentTemplate = ({ data }: ContentTemplateProps) => {
 
 export default ContentTemplate
 
-export const pageQuery = graphql`
-  query($path: String!) {
+export const query = graphql`
+  query SinglePage($path: String!) {
     mdx(frontmatter: { draft: { ne: true }, path: { eq: $path } }) {
       body
       frontmatter {

@@ -11,20 +11,20 @@ View the [demo site](https://gatsby-starter-typescript.netlify.com).
 Make sure that you have the Gatsby CLI program installed:
 
 ```sh
-npm install --global gatsby-cli
+$ npm install --global gatsby-cli
 ```
 
 And run from your CLI:
 
 ```sh
-gatsby new gatsby-example-site https://github.com/goblindegook/gatsby-starter-typescript
+$ gatsby new gatsby-example-site https://github.com/goblindegook/gatsby-starter-typescript
 ```
 
 Then you can run it by:
 
 ```sh
-cd gatsby-example-site
-npm run develop
+$ cd gatsby-example-site
+$ npm run develop
 ```
 
 ## Gatsby Plugins
@@ -41,6 +41,7 @@ npm run develop
 - gatsby-plugin-react-helmet
 - gatsby-plugin-sharp
 - gatsby-plugin-sitemap
+- gatsby-plugin-typegen
 - gatsby-plugin-typescript
 - gatsby-plugin-typography
 - gatsby-remark-copy-linked-files

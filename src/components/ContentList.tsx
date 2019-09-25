@@ -1,9 +1,10 @@
 import React from 'react'
 import { css } from '@emotion/core'
+import { IndexPageQuery, TagPageQuery } from 'generated/types/gatsby'
 import { Link } from 'gatsby'
 
 interface ContentListProps {
-  readonly edges: Edges<Markdown>
+  readonly edges: IndexPageQuery['allMdx']['edges'] | TagPageQuery['allMdx']['edges']
 }
 
 const list = css`

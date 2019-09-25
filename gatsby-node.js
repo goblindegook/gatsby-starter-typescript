@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 /**
  * Implement Gatsby's Node APIs in this file.
  *
@@ -6,116 +8,104 @@
 
 const path = require('path')
 const { kebabCase } = require('lodash')
-const { uniq } = require('ramda')
 
-const defaultBuildPath = (page, prefix) => (page > 1 ? `${prefix}/${page}` : `/${prefix}`)
+function groupCountBy(field, edges) {
+  const groupCounts = edges.reduce((acc, { node }) => {
+    const groups = node.frontmatter[field] || []
+    groups.forEach(group => {
+      acc[group] = (acc[group] || 0) + 1
+    })
+    return acc
+  }, {})
 
-const createPaginatedPages = ({
-  edges,
-  createPage,
-  component,
-  limit = 10,
-  prefix = '',
-  buildPath = defaultBuildPath,
-  context = {}
-}) => {
-  edges
-    .map((edge, index) => index % limit === 0 && edges.slice(index, index + limit))
-    .filter(group => group)
-    .forEach((group, index, groups) =>
+  return Object.entries(groupCounts)
+}
+
+exports.createPages = async ({ actions, graphql, reporter }) => {
+  const { createPage } = actions
+
+  function createContentListPages({ itemTotal, prefix, component, context, limit = 10 }) {
+    const pageTotal = Math.ceil(itemTotal / limit)
+
+    for (let page = 1; page <= pageTotal; page++) {
+      const path = page > 1 ? `${prefix}/${page}` : `${prefix}`
+      const skip = (page - 1) * limit
+
       createPage({
-        path: buildPath(index + 1, prefix),
+        path,
         component,
         context: {
           ...context,
-          group,
+          itemTotal,
+          limit,
+          page,
+          pageTotal,
           prefix,
-          page: index + 1,
-          pageTotal: groups.length,
-          itemTotal: edges.length
+          skip
         }
       })
-    )
-}
-
-exports.createPages = ({ actions, graphql }) => {
-  const { createPage } = actions
+    }
+  }
 
   const IndexTemplate = path.resolve('src/templates/IndexTemplate.tsx')
   const TagTemplate = path.resolve('src/templates/TagTemplate.tsx')
   const SingleTemplate = path.resolve('src/templates/SingleTemplate.tsx')
 
-  return graphql(`
+  const { data, errors } = await graphql(`
     {
-      allMdx(
-        sort: { order: DESC, fields: [frontmatter___date] }
-        limit: 2000
-        filter: { frontmatter: { draft: { ne: true } } }
-      ) {
+      allMdx(filter: { frontmatter: { draft: { ne: true } } }) {
         edges {
           node {
-            id
             parent {
               ... on File {
                 name
                 sourceInstanceName
               }
             }
-            excerpt(pruneLength: 250)
             frontmatter {
               path
-              title
-              date(formatString: "MMMM D, YYYY")
               tags
             }
           }
         }
       }
     }
-  `).then(result => {
-    if (result.errors) {
-      return Promise.reject(result.errors)
-    }
+  `)
 
-    const edges = result.data.allMdx.edges
+  if (errors) {
+    reporter.panicOnBuild('Error fetching data', errors)
+    return
+  }
 
-    // Create single content pages:
-    edges.forEach(({ node }) => {
-      const { frontmatter, parent } = node
-      createPage({
-        path: frontmatter.path || `/${parent.sourceInstanceName}/${parent.name}`,
-        component: SingleTemplate
-      })
+  const edges = data.allMdx.edges
+
+  edges.forEach(({ node }) => {
+    const { frontmatter, parent } = node
+    const path = frontmatter.path || `/${parent.sourceInstanceName}/${parent.name}`
+    createPage({
+      path,
+      component: SingleTemplate
+    })
+  })
+
+  reporter.info(`Articles (${edges.length})`)
+
+  createContentListPages({
+    itemTotal: edges.length,
+    prefix: '/all',
+    component: IndexTemplate
+  })
+
+  reporter.info(`Index (${Math.ceil(edges.length / 10)})`)
+
+  groupCountBy('tags', edges).forEach(([tag, itemTotal]) => {
+    createContentListPages({
+      itemTotal,
+      prefix: `/tags/${kebabCase(tag)}`,
+      component: TagTemplate,
+      context: { tag }
     })
 
-    // Create full content list:
-    createPaginatedPages({
-      edges,
-      createPage,
-      component: IndexTemplate,
-      limit: 10,
-      prefix: 'all'
-    })
-
-    // Create content lists by tag:
-    const tags = uniq(
-      edges.reduce((acc, { node }) => [...acc, ...(node.frontmatter.tags || [])], [])
-    )
-
-    tags.forEach(tag => {
-      const slug = kebabCase(tag)
-
-      createPaginatedPages({
-        edges: edges.filter(({ node }) => (node.frontmatter.tags || []).includes(tag)),
-        createPage,
-        component: TagTemplate,
-        limit: 10,
-        prefix: `tags/${slug}`,
-        context: {
-          slug,
-          tag
-        }
-      })
-    })
+    reporter.info(`Tag: ${tag} (${Math.ceil(itemTotal / 10)})`)
   })
 }

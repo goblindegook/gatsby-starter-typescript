@@ -2,33 +2,23 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Helmet from 'react-helmet'
 import { kebabCase } from 'lodash'
+import { TagListPageQuery } from 'generated/types/gatsby'
 import { Layout } from '../components/Layout'
 
 interface TagsPageProps {
-  readonly data: {
-    readonly allMdx: AllMarkdown & {
-      readonly group: readonly {
-        readonly fieldValue: string
-        readonly totalCount: number
-      }[]
-    }
-    readonly site: Site
-  }
+  readonly data: TagListPageQuery
 }
 
-const TagsPage = (props: TagsPageProps) => {
-  const { allMdx } = props.data
-
+const TagsPage = ({ data }: TagsPageProps) => {
   return (
     <Layout>
       <Helmet title="Tags" />
       <div>
         <h2>Tags</h2>
         <ul>
-          {allMdx.group.map(tag => (
-            <li key={tag.fieldValue}>
-              <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>{tag.fieldValue}</Link> (
-              {tag.totalCount})
+          {data.allMdx.group.map(({ tag, totalCount }) => (
+            <li key={tag}>
+              <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link> ({totalCount})
             </li>
           ))}
         </ul>
@@ -39,11 +29,11 @@ const TagsPage = (props: TagsPageProps) => {
 
 export default TagsPage
 
-export const pageQuery = graphql`
-  {
-    allMdx(limit: 2000, filter: { frontmatter: { draft: { ne: true } } }) {
+export const query = graphql`
+  query TagListPage {
+    allMdx(filter: { frontmatter: { draft: { ne: true } } }) {
       group(field: frontmatter___tags) {
-        fieldValue
+        tag: fieldValue
         totalCount
       }
     }
