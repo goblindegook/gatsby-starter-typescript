@@ -1,10 +1,11 @@
 language: node_js
 node_js:
   - 'stable'
-  - '8'
   - '10'
 before_script:
   - 'yarn'
+  - 'yarn build'
+  - 'yarn lint'
 cache:
   directories:
     - ~/.cache
