@@ -1,11 +1,3 @@
 {
-  "extends": ["@pacote/eslint-config", "@pacote/eslint-config-react", "@pacote/eslint-config-jest"],
-  "overrides": [
-    {
-      "files": ["__mocks__/**/*.js"],
-      "env": {
-        "jest": true
-      }
-    }
-  ]
+  "extends": ["@pacote/eslint-config", "@pacote/eslint-config-react", "@pacote/eslint-config-jest"]
 }

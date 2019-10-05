@@ -1531,9 +1531,9 @@
     fastq "^1.6.0"
 
 "@pacote/eslint-config-jest@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@pacote/eslint-config-jest/-/eslint-config-jest-1.0.0.tgz#1e701c169fb019a68398ebfc273c9ffb8c0d1e4a"
-  integrity sha512-a0d1ECnPu9Z07Tgy1tBADtVcGyXVOu3/XPcWbHjWX04fxsb83lVMRipLgoxwwW5KgnbMmqKIHuBCXWFF/N+IYQ==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@pacote/eslint-config-jest/-/eslint-config-jest-1.0.1.tgz#065f623ac9aa63e7393fce24bc042722dc5e3602"
+  integrity sha512-Q+XLyYjBnAk58IMFztH0zQXNysYI/xmjRrpjuPi5D+vJ1BTBYYlTK2ob6y0EFEpayBZzgVCP/uHGfLaav8BzvA==
 
 "@pacote/eslint-config-react@^1.0.0":
   version "1.0.0"
@@ -1541,9 +1541,9 @@
   integrity sha512-IBraJyTUYzxugalkd6TayANyowlERCKBIako0O4KLxUkxpsMzxhY+bzgn5fioMskHduElSgL18PWgdeUI3utjg==
 
 "@pacote/eslint-config@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@pacote/eslint-config/-/eslint-config-1.0.0.tgz#b93385d8ac8c271e41c507e6e995114e83b44d9f"
-  integrity sha512-VFRI4pPnF98dnsEw6KQ43l6NZgxJ2xku+hndAPokdqsInhs1Au8pIHGH05r4+3svjrSlnuPE1/3ueTIas/9aiQ==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@pacote/eslint-config/-/eslint-config-1.0.1.tgz#f412a6e2bdb7ac768f98d7b85d76c77eb053afc4"
+  integrity sha512-4Qq3rwy0sf8zmcW4aPKlXaOMhO+flyuBGL542D6PqFUFbuTFyk6pt4MXSTlwgrV5SrpCalfs7Oj/L2Ff+ClH3w==
 
 "@pacote/react-use-outside@^1.0.2":
   version "1.1.0"
