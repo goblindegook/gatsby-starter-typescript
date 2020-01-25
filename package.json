@@ -117,12 +117,10 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --write",
-      "eslint",
-      "git add"
+      "eslint"
     ],
     "*.{js,json,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "jest": {
