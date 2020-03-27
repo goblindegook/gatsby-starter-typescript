@@ -13,7 +13,7 @@ interface ContentTemplateProps {
 
 const ContentTemplate = ({ data }: ContentTemplateProps) => {
   const {
-    mdx: { frontmatter, body }
+    mdx: { frontmatter, body },
   } = data
 
   return (

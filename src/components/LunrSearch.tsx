@@ -64,7 +64,7 @@ const styles = {
     width: 1px;
     height: 1px;
     overflow: hidden;
-  `
+  `,
 }
 
 const search = (query: string): readonly SearchResult[] => {
@@ -93,7 +93,7 @@ export const LunrSearch = ({ limit }: LunrSearchProps) => {
           type="search"
           css={styles.input}
           value={query}
-          onChange={event => {
+          onChange={(event) => {
             setQuery(event.target.value)
             setResults(search(event.target.value))
             setActive(true)

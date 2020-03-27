@@ -10,9 +10,9 @@ describe('<Pager />', () => {
 
   it('renders a pager for the second page', () => {
     const { getByText } = render(<Pager page={2} prefix="prefix" total={3} />)
-    expect(['Previous', 'Next'].map(text => getByText(text).getAttribute('href'))).toEqual([
+    expect(['Previous', 'Next'].map((text) => getByText(text).getAttribute('href'))).toEqual([
       '/prefix',
-      '/prefix/3'
+      '/prefix/3',
     ])
   })
 

@@ -6,20 +6,20 @@ import { LunrSearch } from '../../src/components/LunrSearch'
 
 function change(element: HTMLElement, value: string): void {
   fireEvent.change(element, {
-    target: { value }
+    target: { value },
   })
 }
 
 function setupLunrIndex(store: { readonly [key: string]: {} }): void {
   window.__LUNR__ = {
     en: {
-      index: lunr(function() {
+      index: lunr(function () {
         this.field('path')
         this.field('title')
         Object.entries(store).map(([id, document]) => this.add({ id, ...document }))
       }),
-      store
-    }
+      store,
+    },
   }
 }
 
@@ -33,7 +33,7 @@ describe('LunrSearch', () => {
   it('displays search results from the global Lunr index', () => {
     setupLunrIndex({
       '1': { path: '/1', title: 'Number One' },
-      '2': { path: '/2', title: 'Number Two' }
+      '2': { path: '/2', title: 'Number Two' },
     })
 
     const { getByText, queryByText, getByLabelText } = render(<LunrSearch />)
@@ -48,7 +48,7 @@ describe('LunrSearch', () => {
     setupLunrIndex({
       '1': { path: '/1', title: 'Number One' },
       '2': { path: '/2', title: 'Number Two' },
-      '3': { path: '/2', title: 'Number Three' }
+      '3': { path: '/2', title: 'Number Three' },
     })
 
     const { getByText, getAllByText, getByLabelText } = render(<LunrSearch limit={2} />)
@@ -62,7 +62,7 @@ describe('LunrSearch', () => {
     setupLunrIndex({
       '1': { path: '/1', title: 'Number One' },
       '2': { path: '/2', title: 'Number Two' },
-      '3': { path: '/3', title: 'Number Three' }
+      '3': { path: '/3', title: 'Number Three' },
     })
 
     const { getByText, getByLabelText } = render(<LunrSearch limit={9999} />)
@@ -73,7 +73,7 @@ describe('LunrSearch', () => {
 
   it('hides search results on clicking outside the component', () => {
     setupLunrIndex({
-      '1': { path: '/test', title: 'Test' }
+      '1': { path: '/test', title: 'Test' },
     })
 
     const { queryByText, getByLabelText, getByTestId } = render(

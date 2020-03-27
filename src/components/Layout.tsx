@@ -35,12 +35,12 @@ export const Layout = ({ children }: LayoutProps) => {
         meta={[
           {
             name: 'description',
-            content: data.site.siteMetadata.description
+            content: data.site.siteMetadata.description,
           },
           {
             name: 'keywords',
-            content: 'gatsby, gatsbyjs, sample, demo, typescript'
-          }
+            content: 'gatsby, gatsbyjs, sample, demo, typescript',
+          },
         ]}
       />
       <Header title={data.site.siteMetadata.title} />

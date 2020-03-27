@@ -18,7 +18,7 @@ const IndexTemplate = ({ data, pageContext }: IndexPageProps) => (
     <Helmet
       meta={[
         { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' }
+        { name: 'keywords', content: 'sample, something' },
       ]}
     />
     <h2>All Markdown Content</h2>

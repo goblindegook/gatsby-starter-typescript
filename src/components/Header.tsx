@@ -20,7 +20,7 @@ const style = {
   title: css`
     margin: 0;
     display: inline-block;
-  `
+  `,
 }
 
 const TitleLink = styled(Link)`
