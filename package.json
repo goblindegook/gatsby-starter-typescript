@@ -36,7 +36,7 @@
     "gatsby-remark-prismjs": "^3.2.6",
     "gatsby-remark-smartypants": "^2.0.8",
     "gatsby-source-filesystem": "^2.0.1",
-    "gatsby-transformer-remark": "^2.6.10",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^2.1.1",
     "graphql": "^14.5.8",
     "graphql-tag-pluck": "^0.8.5",
